@@ -151,7 +151,10 @@ public class LGEncryptor {
     fileprivate var algorithm: LGEncryptorAlgorithm
     
     /// 填充模式
-    fileprivate var options: CCOptions
+    fileprivate var padding: Int
+    
+    /// block mode
+    fileprivate var blockMode: Int
     
     /// IV
     fileprivate var iv: Data?
@@ -160,16 +163,19 @@ public class LGEncryptor {
     ///
     /// - Parameters:
     ///   - algorithm: 算法，默认aes_128
-    ///   - options: 填充模式，默认ECB+PKCS7
+    ///   - options: 填充模式，默认PKCS7
+    ///   - blockMode: blockMode，默认ECB
     ///   - iv: IV，默认nil
     ///   - ivEncoding: IV编码，默认UTF8
     public init(algorithm: LGEncryptorAlgorithm = LGEncryptorAlgorithm.aes_128,
-                options: CCOptions = CCOptions(kCCOptionPKCS7Padding | kCCOptionECBMode),
+                padding: Int = ccPKCS7Padding,
+                blockMode: Int = kCCModeCBC,
                 iv: String? = nil,
                 ivEncoding: String.Encoding = String.Encoding.utf8)
     {
         self.algorithm = algorithm
-        self.options = options
+        self.padding = padding
+        self.blockMode = blockMode
         self.iv = iv?.data(using: ivEncoding, allowLossyConversion: false)
     }
     
@@ -222,7 +228,7 @@ public class LGEncryptor {
                                      key: String,
                                      operation: CCOperation) throws -> Data {
         // 除ECB模式外均需要IV
-        if iv == nil && (self.options & CCOptions(kCCOptionECBMode) == 0) {
+        if iv == nil && (self.padding & kCCOptionECBMode == 0) {
             throw(LGEncryptorError.invalidInitializationVector)
         }
         
@@ -247,12 +253,14 @@ public class LGEncryptor {
         let dataBytes = inputData.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> UnsafePointer<UInt8> in
             return bytes
         }
+        // 输出buffer组装
         var outputBufferData = Data(count: dataLength + algorithm.blockSize)
         let outputBufferPointer = outputBufferData.withUnsafeMutableBytes
         { (bytes: UnsafeMutablePointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
             return bytes
         }
-        let outputBufferLength = outputBufferData.count
+        
+        var resultBuffer = Data()
         
         // 组装IV
         let ivBuffer: UnsafePointer<UInt8>? = (iv == nil) ? nil : iv!.withUnsafeBytes(
@@ -262,26 +270,60 @@ public class LGEncryptor {
         
         var bytesDecrypted = Int(0)
         
-        // 执行操作
-        let cryptStatus = CCCrypt(operation,
-                                  algorithm.ccAlgorithm,
-                                  options,
-                                  keyBytes,
-                                  keyLength,
-                                  ivBuffer,
-                                  dataBytes,
-                                  dataLength,
-                                  outputBufferPointer,
-                                  outputBufferLength,
-                                  &bytesDecrypted)
+        /// 创建加解密工具
+        var cryptorRef: CCCryptorRef? = nil
+        var cryptStatus = CCCryptorCreateWithMode(operation,
+                                                  CCMode(self.blockMode),
+                                                  self.algorithm.ccAlgorithm,
+                                                  CCPadding(self.padding),
+                                                  ivBuffer,
+                                                  keyBytes,
+                                                  keyLength,
+                                                  nil,
+                                                  0,
+                                                  0,
+                                                  CCModeOptions(),
+                                                  &cryptorRef)
+        
+        guard cryptorRef != nil && kCCSuccess == cryptStatus else {
+            throw(LGEncryptorError.failedWith(code: cryptStatus))
+        }
+        
+        // 获取输出buffer大小 结果等于dataLength + blockSize
+        let outputLength = CCCryptorGetOutputLength(cryptorRef, dataLength, true)
+        
+        cryptStatus = CCCryptorUpdate(cryptorRef,
+                                      dataBytes,
+                                      dataLength,
+                                      outputBufferPointer,
+                                      outputLength,
+                                      &bytesDecrypted)
+        
+        guard cryptorRef != nil && kCCSuccess == cryptStatus else {
+            throw(LGEncryptorError.failedWith(code: cryptStatus))
+        }
+        
+        // 加入第一部分结果
+        resultBuffer.append(outputBufferData.subdata(in: 0..<bytesDecrypted))
+        
+        cryptStatus = CCCryptorFinal(cryptorRef,
+                                     outputBufferPointer,
+                                     outputLength,
+                                     &bytesDecrypted)
+        
+        // 加入最终结果
+        resultBuffer.append(outputBufferData.subdata(in: 0..<bytesDecrypted))
+        
+        // 手动释放
+        CCCryptorRelease(cryptorRef)
+        
+        
         
         if kCCSuccess == cryptStatus {
             guard bytesDecrypted >= 0 else {
                 throw LGEncryptorError.invalidOutputData
             }
-            // 将缓冲区大小修改为实际字节数
-            outputBufferData.count = bytesDecrypted
-            return outputBufferData
+            return resultBuffer
         } else {
             throw(LGEncryptorError.failedWith(code: cryptStatus))
         }

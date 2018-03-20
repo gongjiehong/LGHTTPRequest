@@ -122,6 +122,19 @@ extension String {
         }
         return try data.aesEncrypt(with: key)
     }
+    
+    
+    /// 通过key对当前字符串进行AES解密，key长度必须为32个字符，前16个字符为实际解密key，后16个字符为IV，填充模式PKCS7，块模式CBC
+    ///
+    /// - Parameter key: 加密key
+    /// - Returns: 解密后的data
+    /// - Throws: 整个过程中出现的异常
+    public func aesDecrypt(withKey key: String) throws -> Data {
+        guard let data = self.data(using: String.Encoding.utf8, allowLossyConversion: false) else {
+            throw LGEncryptorError.invalidInputData
+        }
+        return try data.aesDecrypt(with: key)
+    }
 }
 
 

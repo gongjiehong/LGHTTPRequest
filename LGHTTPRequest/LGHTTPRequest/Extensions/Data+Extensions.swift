@@ -37,10 +37,29 @@ extension Data {
         }
 
         let encryptor = LGEncryptor(algorithm: LGEncryptorAlgorithm.aes_128,
-                                    options: CCOptions(kCCOptionPKCS7Padding | kCCModeCBC),
+                                    padding: ccPKCS7Padding,
+                                    blockMode: kCCModeCBC,
                                     iv: key.substring(fromIndex: 16),
                                     ivEncoding: String.Encoding.utf8)
         return try encryptor.crypt(data: self, key: key.substring(toIndex: 16))
+    }
+    
+    /// 通过key对当前Data进行AES解密，key长度必须为32个字符，前16个字符为实际解密key，后16个字符为IV，填充模式PKCS7，块模式CBC
+    ///
+    /// - Parameter key: 加密key
+    /// - Returns: 解密后的data
+    /// - Throws: 整个过程中出现的异常
+    public func aesDecrypt(with key: String) throws -> Data {
+        guard key.length == 32 else {
+            throw LGEncryptorError.invalidKey
+        }
+        
+        let encryptor = LGEncryptor(algorithm: LGEncryptorAlgorithm.aes_128,
+                                    padding: ccPKCS7Padding,
+                                    blockMode: kCCModeCBC,
+                                    iv: key.substring(fromIndex: 16),
+                                    ivEncoding: String.Encoding.utf8)
+        return try encryptor.decrypt(self, key: key.substring(toIndex: 16))
     }
 }
 
