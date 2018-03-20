@@ -340,6 +340,9 @@ public struct LGJsonXOREncoding: LGParameterEncoding {
             }
             
             let encodedData = urlEncodeString!.XOREncrypt(withKey: self.encodePrivateKey).base64EncodedData()
+            
+            // 设置匹配公钥
+            request.setValue(self.encodePublicKey, forHTTPHeaderField: "APPID")
 
             // 设置httpBody
             request.httpBody = encodedData

@@ -15,18 +15,10 @@ extension String {
     /// 返回当前String的MD5值
     ///
     /// - Returns: 当前String的MD5或nil
-    public func md5Hash() -> String? {
-        let length = Int(CC_MD5_DIGEST_LENGTH)
-        
+    public func md5Hash() -> String? {        
         guard let data = self.data(using: String.Encoding.utf8) else { return nil }
         
-        let hash = data.withUnsafeBytes { (bytes: UnsafePointer<Data>) -> [UInt8] in
-            var hash: [UInt8] = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
-            CC_MD5(bytes, CC_LONG(data.count), &hash)
-            return hash
-        }
-        
-        return (0..<length).map { String(format: "%02x", hash[$0]) }.joined()
+        return data.md5Hash()
     }
     
     /// 当前String的长度，Swift4以后新换为count
@@ -88,23 +80,25 @@ extension String {
         // 加密key长度
         let keyLen = realKey.utf8.count
         
-        var resStr: String = ""
-        
+        var resultBuffer = String()
         var j: Int = 0
         var nt: Unicode.UTF8.CodeUnit
         var d: Unicode.UTF8.CodeUnit
         var k: Unicode.UTF8.CodeUnit
+        print(time(nil))
         for i in 0..<dataLen {
             d = self.utf8[self.utf8.index(self.utf8.startIndex, offsetBy: i)]
             k = realKey.utf8[realKey.utf8.index(realKey.utf8.startIndex, offsetBy: j)]
             nt = d ^ k
-            resStr.append(Character(UnicodeScalar(nt)))
+            resultBuffer.append(Character(UnicodeScalar(nt)))
+
             j += 1
             if j >= keyLen {
                 j = 0
             }
         }
-        return resStr
+        print(time(nil))
+        return resultBuffer//String(bytes: resultBuffer, encoding: String.Encoding.utf8) ?? ""
     }
     
     // MARK: -  base64 data
@@ -115,6 +109,18 @@ extension String {
     public func base64EncodedData() -> Data? {
         let data = self.data(using: String.Encoding.utf8)
         return data?.base64EncodedData(options: Data.Base64EncodingOptions.endLineWithLineFeed)
+    }
+    
+    /// 通过key对当前字符串进行AES加密，key长度必须为32个字符，前16个字符为实际加密key，后16个字符为IV，填充模式PKCS7，块模式CBC
+    ///
+    /// - Parameter key: 加密key
+    /// - Returns: 加密后的data，一般配合base64使用
+    /// - Throws: 整个过程中出现的异常
+    public func aesEncrypt(withKey key: String) throws -> Data {
+        guard let data = self.data(using: String.Encoding.utf8, allowLossyConversion: false) else {
+            throw LGEncryptorError.invalidInputData
+        }
+        return try data.aesEncrypt(with: key)
     }
 }
 

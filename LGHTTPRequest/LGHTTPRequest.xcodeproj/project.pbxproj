@@ -28,6 +28,8 @@
 		FE43FB9F1F0E25DA002A1488 /* LGReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE43FB9E1F0E25DA002A1488 /* LGReachability.swift */; };
 		FE43FBA11F0E3129002A1488 /* LGMultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE43FBA01F0E3129002A1488 /* LGMultipartFormData.swift */; };
 		FE54753420522ACB00161A5B /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE54753320522ACB00161A5B /* DispatchQueue+Extension.swift */; };
+		FEAD7EA12060B6AA0019B34A /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD7EA02060B6AA0019B34A /* Data+Extensions.swift */; };
+		FEAD7EA32060C1B10019B34A /* LGEncryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD7EA22060C1B10019B34A /* LGEncryptor.swift */; };
 		FEAEE22A204FEBB900D621C4 /* LGResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAEE229204FEBB900D621C4 /* LGResponseSerialization.swift */; };
 		FEAEE22C204FEC7300D621C4 /* LGHTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAEE22B204FEC7300D621C4 /* LGHTTPResponse.swift */; };
 		FEAEE22E204FED9300D621C4 /* LGResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAEE22D204FED9300D621C4 /* LGResult.swift */; };
@@ -71,6 +73,8 @@
 		FE43FB9E1F0E25DA002A1488 /* LGReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGReachability.swift; sourceTree = "<group>"; };
 		FE43FBA01F0E3129002A1488 /* LGMultipartFormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGMultipartFormData.swift; sourceTree = "<group>"; };
 		FE54753320522ACB00161A5B /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
+		FEAD7EA02060B6AA0019B34A /* Data+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extensions.swift"; sourceTree = "<group>"; };
+		FEAD7EA22060C1B10019B34A /* LGEncryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGEncryptor.swift; sourceTree = "<group>"; };
 		FEAEE229204FEBB900D621C4 /* LGResponseSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGResponseSerialization.swift; sourceTree = "<group>"; };
 		FEAEE22B204FEC7300D621C4 /* LGHTTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGHTTPResponse.swift; sourceTree = "<group>"; };
 		FEAEE22D204FED9300D621C4 /* LGResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGResult.swift; sourceTree = "<group>"; };
@@ -181,6 +185,7 @@
 			children = (
 				FE2E621420035FA600269AB8 /* String+Extensions.swift */,
 				FE54753320522ACB00161A5B /* DispatchQueue+Extension.swift */,
+				FEAD7EA02060B6AA0019B34A /* Data+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -193,6 +198,7 @@
 				FE35FE261F0F337B00CCAA40 /* LGHTTPRequestCommon.swift */,
 				FE184B3D1FF0F42C0015A27A /* LGServerTrustPolicy.swift */,
 				FE18E3782057838200D7BD0E /* LGURLProtocol.swift */,
+				FEAD7EA22060C1B10019B34A /* LGEncryptor.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -388,10 +394,12 @@
 				FE15386A1F0C956B009417E7 /* LGParameterEncoding.swift in Sources */,
 				FE2E621520035FA600269AB8 /* String+Extensions.swift in Sources */,
 				FE2E620F20035F9F00269AB8 /* LGStreamRequest.swift in Sources */,
+				FEAD7EA32060C1B10019B34A /* LGEncryptor.swift in Sources */,
 				FE41A3651F14893100D6673B /* LGMultipartFormDataEncoding.swift in Sources */,
 				FE184B3E1FF0F42C0015A27A /* LGServerTrustPolicy.swift in Sources */,
 				FE1538681F0C9365009417E7 /* LGError.swift in Sources */,
 				FE2E620C20035F9F00269AB8 /* LGURLSessionTaskDelegate.swift in Sources */,
+				FEAD7EA12060B6AA0019B34A /* Data+Extensions.swift in Sources */,
 				FE2E621120035F9F00269AB8 /* LGUploadRequest.swift in Sources */,
 				FE18E3792057838200D7BD0E /* LGURLProtocol.swift in Sources */,
 				FE43FBA11F0E3129002A1488 /* LGMultipartFormData.swift in Sources */,
