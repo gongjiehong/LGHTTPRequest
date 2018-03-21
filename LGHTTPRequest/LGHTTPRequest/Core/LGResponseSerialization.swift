@@ -77,14 +77,6 @@ extension LGDownloadRequest {
         return self
     }
     
-    
-    /// <#Description#>
-    ///
-    /// - Parameters:
-    ///   - queue: <#queue description#>
-    ///   - responseSerializer: <#responseSerializer description#>
-    ///   - completionHandler: <#completionHandler description#>
-    /// - Returns: <#return value description#>
     @discardableResult
     public func response<T: LGHTTPDownloadResponseSerializerProtocol>(
         queue: DispatchQueue? = nil,
