@@ -443,7 +443,7 @@ open class LGURLSessionManager {
                 } else {
                     let fileManager = FileManager.default
                     let tempDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
-                    let directoryURL = tempDirectoryURL.appendingPathComponent("org.alamofire.manager/multipart.form.data")
+                    let directoryURL = tempDirectoryURL.appendingPathComponent("com.lghttprequest.manager/multipart.form.data")
                     let fileName = UUID().uuidString
                     let fileURL = directoryURL.appendingPathComponent(fileName)
                     

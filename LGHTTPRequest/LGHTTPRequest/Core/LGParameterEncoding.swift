@@ -294,8 +294,8 @@ public struct LGPropertyListEncoding: LGParameterEncoding {
 
 public struct LGJsonXOREncoding: LGParameterEncoding {
     
-    public static var `default`: LGPropertyListEncoding {
-        return LGPropertyListEncoding()
+    public static var `default`: LGJsonXOREncoding {
+        return LGJsonXOREncoding()
     }
     
     public var encodePublicKey: String
