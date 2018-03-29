@@ -271,10 +271,9 @@ public class LGReachability {
     func isNetworkReachable(with flags: SCNetworkReachabilityFlags) -> Bool {
         let isReachable = flags.contains(.reachable)
         let needsConnection = flags.contains(.connectionRequired)
-        let canConnectAutomatically = flags.contains(.connectionOnDemand) || flags.contains(.connectionOnTraffic)
-        let canConnectWithoutUserInteraction = canConnectAutomatically && !flags.contains(.interventionRequired)
+        let transientConnection = flags.contains(.transientConnection)
         
-        return isReachable && (!needsConnection || canConnectWithoutUserInteraction)
+        return isReachable && !needsConnection && transientConnection
     }
 }
 
