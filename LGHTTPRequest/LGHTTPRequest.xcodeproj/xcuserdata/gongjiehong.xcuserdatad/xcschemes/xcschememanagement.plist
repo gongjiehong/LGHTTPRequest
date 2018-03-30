@@ -7,7 +7,7 @@
 		<key>LGHTTPRequest.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>0</integer>
 		</dict>
 		<key>LGHTTPRequestTests.xcscheme</key>
 		<dict>

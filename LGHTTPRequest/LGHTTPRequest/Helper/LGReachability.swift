@@ -273,7 +273,7 @@ public class LGReachability {
         let needsConnection = flags.contains(.connectionRequired)
         let transientConnection = flags.contains(.transientConnection)
         
-        return isReachable && !needsConnection && transientConnection
+        return (isReachable && !needsConnection && transientConnection) || (flags == [.reachable])
     }
 }
 
