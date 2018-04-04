@@ -91,7 +91,7 @@ open class LGURLSessionManager {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = LGURLSessionManager.defaultHTTPHeaders
         // The default value is 6 in macOS, or 4 in iOS.
-        configuration.httpMaximumConnectionsPerHost = 6
+//        configuration.httpMaximumConnectionsPerHost = 6
         
         return LGURLSessionManager(configuration: configuration)
     }()
