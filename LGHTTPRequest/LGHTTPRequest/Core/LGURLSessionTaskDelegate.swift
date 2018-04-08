@@ -339,10 +339,20 @@ class LGDownloadTaskDelegate: LGURLSessionTaskDelegate, URLSessionDownloadDelega
         guard let destinationURL = self.destinationURL else { return }
         
         do {
+            // 如果原路径有文件直接删除
             if FileManager.default.fileExists(atPath: destinationURL.path) {
                 try FileManager.default.removeItem(at: destinationURL)
             }
-            
+            // 如果目标路径的文件夹未事先创建，则直接创建文件夹
+            var isDirectory: ObjCBool = false
+            let dirPath = destinationURL.deletingLastPathComponent().absoluteString
+            let dirIsExists = FileManager.default.fileExists(atPath: dirPath,
+                                                             isDirectory: &isDirectory)
+            if !(isDirectory.boolValue && dirIsExists) {
+                try FileManager.default.createDirectory(at: destinationURL.deletingLastPathComponent(),
+                                                        withIntermediateDirectories: true)
+            }
+            // 拷贝文件到目标路径
             try FileManager.default.moveItem(at: location, to: destinationURL)
         } catch {
             self.error = error
