@@ -64,11 +64,5 @@ open class LGDownloadRequest: LGHTTPRequest {
         downloadDelegate.progressHandler = (closure, queue)
         return self
     }
-    
-    open func didReceiveData() {
-        self.downloadDelegate.downloadTaskDidWriteData = {(_, _, _, _, _) in
-            
-        }
-    }
 }
 
