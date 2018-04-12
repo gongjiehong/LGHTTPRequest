@@ -38,6 +38,14 @@ open class LGDataRequest: LGHTTPRequest {
     
     var dataDelegate: LGDataTaskDelegate { return delegate as! LGDataTaskDelegate }
     
+    open var totalBytesReceived: Int64 {
+        return self.dataDelegate.totalBytesReceived
+    }
+    
+    open var expectedContentLength: Int64 {
+        return self.dataDelegate.expectedContentLength ?? NSURLSessionTransferSizeUnknown
+    }
+    
     @discardableResult
     open func stream(closure: ((Data) -> Void)? = nil) -> Self {
         dataDelegate.dataStream = closure
@@ -49,5 +57,9 @@ open class LGDataRequest: LGHTTPRequest {
     open func downloadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping LGProgressHandler) -> Self {
         dataDelegate.progressHandler = (closure, queue)
         return self
+    }
+    
+    deinit {
+        print("LGDataRequest deinit")
     }
 }

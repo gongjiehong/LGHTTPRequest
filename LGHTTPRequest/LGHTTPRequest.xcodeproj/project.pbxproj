@@ -11,7 +11,6 @@
 		FE1538681F0C9365009417E7 /* LGError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1538671F0C9365009417E7 /* LGError.swift */; };
 		FE15386A1F0C956B009417E7 /* LGParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1538691F0C956B009417E7 /* LGParameterEncoding.swift */; };
 		FE184B3E1FF0F42C0015A27A /* LGServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE184B3D1FF0F42C0015A27A /* LGServerTrustPolicy.swift */; };
-		FE18E3792057838200D7BD0E /* LGURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE18E3782057838200D7BD0E /* LGURLProtocol.swift */; };
 		FE29C9D01FC3B99C0032EE0D /* LGHTTPRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE29C9CF1FC3B99C0032EE0D /* LGHTTPRequestTests.swift */; };
 		FE29C9D21FC3B99C0032EE0D /* LGHTTPRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1538301F0C8F75009417E7 /* LGHTTPRequest.framework */; };
 		FE2E620B20035F9F00269AB8 /* LGURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2E620320035F9E00269AB8 /* LGURLSessionManager.swift */; };
@@ -54,7 +53,6 @@
 		FE1538671F0C9365009417E7 /* LGError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGError.swift; sourceTree = "<group>"; };
 		FE1538691F0C956B009417E7 /* LGParameterEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGParameterEncoding.swift; sourceTree = "<group>"; };
 		FE184B3D1FF0F42C0015A27A /* LGServerTrustPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGServerTrustPolicy.swift; sourceTree = "<group>"; };
-		FE18E3782057838200D7BD0E /* LGURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGURLProtocol.swift; sourceTree = "<group>"; };
 		FE29C9CD1FC3B99C0032EE0D /* LGHTTPRequestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LGHTTPRequestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE29C9CF1FC3B99C0032EE0D /* LGHTTPRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGHTTPRequestTests.swift; sourceTree = "<group>"; };
 		FE29C9D11FC3B99C0032EE0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -197,7 +195,6 @@
 				FE43FBA01F0E3129002A1488 /* LGMultipartFormData.swift */,
 				FE35FE261F0F337B00CCAA40 /* LGHTTPRequestCommon.swift */,
 				FE184B3D1FF0F42C0015A27A /* LGServerTrustPolicy.swift */,
-				FE18E3782057838200D7BD0E /* LGURLProtocol.swift */,
 				FEAD7EA22060C1B10019B34A /* LGEncryptor.swift */,
 			);
 			path = Helper;
@@ -401,7 +398,6 @@
 				FE2E620C20035F9F00269AB8 /* LGURLSessionTaskDelegate.swift in Sources */,
 				FEAD7EA12060B6AA0019B34A /* Data+Extensions.swift in Sources */,
 				FE2E621120035F9F00269AB8 /* LGUploadRequest.swift in Sources */,
-				FE18E3792057838200D7BD0E /* LGURLProtocol.swift in Sources */,
 				FE43FBA11F0E3129002A1488 /* LGMultipartFormData.swift in Sources */,
 				FE2E621220035F9F00269AB8 /* LGURLSessionDelegate.swift in Sources */,
 				FEE50724205667E100E49DAE /* LGResponseValidation.swift in Sources */,

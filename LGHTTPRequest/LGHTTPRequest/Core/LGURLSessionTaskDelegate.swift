@@ -192,10 +192,10 @@ class LGDataTaskDelegate: LGURLSessionTaskDelegate, URLSessionDataDelegate {
     
     var dataStream: ((_ data: Data) -> Void)?
     
-    private var totalBytesReceived: Int64 = 0
-    private var mutableData: Data
+    var totalBytesReceived: Int64 = 0
+    var mutableData: Data
     
-    private var expectedContentLength: Int64?
+    var expectedContentLength: Int64?
     
     override init(task: URLSessionTask?) {
         mutableData = Data()
