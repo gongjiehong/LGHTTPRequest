@@ -38,15 +38,15 @@ open class LGURLSessionDelegate: NSObject {
     
     open var taskDidReceiveChallenge: ((URLSession, URLSessionTask, URLAuthenticationChallenge) -> (URLSession.AuthChallengeDisposition, URLCredential?))?
     
-
+    
     open var taskDidReceiveChallengeWithCompletion: ((URLSession, URLSessionTask, URLAuthenticationChallenge, @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) -> Void)?
     
     open var taskNeedNewBodyStream: ((URLSession, URLSessionTask) -> InputStream?)?
     
-
+    
     open var taskNeedNewBodyStreamWithCompletion: ((URLSession, URLSessionTask, @escaping (InputStream?) -> Void) -> Void)?
     
-
+    
     open var taskDidSendBodyData: ((URLSession, URLSessionTask, Int64, Int64, Int64) -> Void)?
     
     open var taskDidComplete: ((URLSession, URLSessionTask, Error?) -> Void)?
@@ -120,7 +120,7 @@ open class LGURLSessionDelegate: NSObject {
             _streamTaskDidBecomeInputStream = newValue
         }
     }
-
+    
     #endif
     
     weak var sessionManager: LGURLSessionManager?
@@ -325,16 +325,20 @@ extension LGURLSessionDelegate: URLSessionDataDelegate {
     {
         if dataTaskDidReceiveResponseWithCompletion != nil {
             dataTaskDidReceiveResponseWithCompletion?(session, dataTask, response, completionHandler)
-            return
+        }  else if let delegate = self[dataTask]?.delegate as? LGDataTaskDelegate {
+            delegate.urlSession(session,
+                                dataTask: dataTask,
+                                didReceive: response,
+                                completionHandler: completionHandler)
+        } else {
+            var disposition: URLSession.ResponseDisposition = .allow
+            
+            if let dataTaskDidReceiveResponse = dataTaskDidReceiveResponse {
+                disposition = dataTaskDidReceiveResponse(session, dataTask, response)
+            }
+            
+            completionHandler(disposition)
         }
-        
-        var disposition: URLSession.ResponseDisposition = .allow
-        
-        if let dataTaskDidReceiveResponse = dataTaskDidReceiveResponse {
-            disposition = dataTaskDidReceiveResponse(session, dataTask, response)
-        }
-        
-        completionHandler(disposition)
     }
     
     public func urlSession(_ session: URLSession,
@@ -434,32 +438,32 @@ extension LGURLSessionDelegate: URLSessionDownloadDelegate {
 // MARK: - URLSessionStreamDelegate
 
 #if !os(watchOS)
-    @available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
-    extension LGURLSessionDelegate: URLSessionStreamDelegate {
-        
-        open func urlSession(_ session: URLSession, readClosedFor streamTask: URLSessionStreamTask) {
-            streamTaskReadClosed?(session, streamTask)
-        }
-        
-        
-        open func urlSession(_ session: URLSession, writeClosedFor streamTask: URLSessionStreamTask) {
-            streamTaskWriteClosed?(session, streamTask)
-        }
-        
-        
-        open func urlSession(_ session: URLSession, betterRouteDiscoveredFor streamTask: URLSessionStreamTask) {
-            streamTaskBetterRouteDiscovered?(session, streamTask)
-        }
-        
-        
-        open func urlSession(_ session: URLSession,
-                             streamTask: URLSessionStreamTask,
-                             didBecome inputStream: InputStream,
-                             outputStream: OutputStream)
-        {
-            streamTaskDidBecomeInputAndOutputStreams?(session, streamTask, inputStream, outputStream)
-        }
+@available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
+extension LGURLSessionDelegate: URLSessionStreamDelegate {
+    
+    open func urlSession(_ session: URLSession, readClosedFor streamTask: URLSessionStreamTask) {
+        streamTaskReadClosed?(session, streamTask)
     }
     
+    
+    open func urlSession(_ session: URLSession, writeClosedFor streamTask: URLSessionStreamTask) {
+        streamTaskWriteClosed?(session, streamTask)
+    }
+    
+    
+    open func urlSession(_ session: URLSession, betterRouteDiscoveredFor streamTask: URLSessionStreamTask) {
+        streamTaskBetterRouteDiscovered?(session, streamTask)
+    }
+    
+    
+    open func urlSession(_ session: URLSession,
+                         streamTask: URLSessionStreamTask,
+                         didBecome inputStream: InputStream,
+                         outputStream: OutputStream)
+    {
+        streamTaskDidBecomeInputAndOutputStreams?(session, streamTask, inputStream, outputStream)
+    }
+}
+
 #endif
 

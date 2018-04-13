@@ -128,6 +128,10 @@ open class LGHTTPRequest {
         
         task.cancel()
     }
+    
+    deinit {
+        print("LGHTTPRequest deinit")
+    }
 }
 
 

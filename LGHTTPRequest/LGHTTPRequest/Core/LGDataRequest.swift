@@ -52,14 +52,9 @@ open class LGDataRequest: LGHTTPRequest {
         return self
     }
     
-    
     @discardableResult
     open func downloadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping LGProgressHandler) -> Self {
         dataDelegate.progressHandler = (closure, queue)
         return self
-    }
-    
-    deinit {
-        print("LGDataRequest deinit")
     }
 }
