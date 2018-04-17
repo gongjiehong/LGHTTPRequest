@@ -85,7 +85,6 @@ extension String {
         var nt: Unicode.UTF8.CodeUnit
         var d: Unicode.UTF8.CodeUnit
         var k: Unicode.UTF8.CodeUnit
-        print(time(nil))
         for i in 0..<dataLen {
             d = self.utf8[self.utf8.index(self.utf8.startIndex, offsetBy: i)]
             k = realKey.utf8[realKey.utf8.index(realKey.utf8.startIndex, offsetBy: j)]
@@ -97,7 +96,6 @@ extension String {
                 j = 0
             }
         }
-        print(time(nil))
         return resultBuffer//String(bytes: resultBuffer, encoding: String.Encoding.utf8) ?? ""
     }
     
