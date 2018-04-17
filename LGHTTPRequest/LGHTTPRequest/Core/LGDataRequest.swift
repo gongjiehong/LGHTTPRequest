@@ -47,8 +47,8 @@ open class LGDataRequest: LGHTTPRequest {
     }
     
     @discardableResult
-    open func stream(queue: DispatchQueue = DispatchQueue.main, closure: @escaping LGDataStreamHandler) -> Self {
-        dataDelegate.dataStreamHandler = (closure, queue)
+    open func stream(closure: ((Data) -> Void)? = nil) -> Self {
+        dataDelegate.dataStream = closure
         return self
     }
     

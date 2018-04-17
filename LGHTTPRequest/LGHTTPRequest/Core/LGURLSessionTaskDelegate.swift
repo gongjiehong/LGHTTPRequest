@@ -12,8 +12,6 @@ import Foundation
 /// 处理上传和下载进度数据的闭包
 public typealias LGProgressHandler = (Progress) -> Void
 
-public typealias LGDataStreamHandler = (Data) -> Void
-
 open class LGURLSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
     
     /// 线程锁
@@ -182,7 +180,7 @@ class LGDataTaskDelegate: LGURLSessionTaskDelegate, URLSessionDataDelegate {
     }
     
     override var receivedData: Data? {
-        if dataStreamHandler != nil {
+        if dataStream != nil {
             return nil
         } else {
             return mutableData
@@ -192,7 +190,7 @@ class LGDataTaskDelegate: LGURLSessionTaskDelegate, URLSessionDataDelegate {
     var progress: Progress
     var progressHandler: (closure: LGProgressHandler, queue: DispatchQueue)?
     
-    var dataStreamHandler: (closure: LGDataStreamHandler, queue: DispatchQueue)?
+    var dataStream: ((_ data: Data) -> Void)?
     
     var totalBytesReceived: Int64 = 0
     var mutableData: Data
@@ -250,10 +248,8 @@ class LGDataTaskDelegate: LGURLSessionTaskDelegate, URLSessionDataDelegate {
         if let block = dataTaskDidReceiveData {
             block(session, dataTask, data)
         } else {
-            if let dataStream = dataStreamHandler {
-                dataStream.queue.sync {
-                    dataStream.closure(data)
-                }
+            if let dataStream = dataStream {
+                dataStream(data)
             } else {
                 mutableData.append(data)
             }
