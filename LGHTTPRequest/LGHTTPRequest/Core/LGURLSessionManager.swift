@@ -13,13 +13,13 @@ import Foundation
 open class LGURLSessionManager {
     
     /// 生成task的底层session
-    open let session: URLSession
+    public let session: URLSession
     
     /// 处理session委托方法的对象，主要将委托方法转换为闭包进行处理
-    open let delegate: LGURLSessionDelegate
+    public let delegate: LGURLSessionDelegate
     
     /// 每个HTTP body在内存中的上限值，默认1MB，操作将使用stream进行处理
-    open static let multipartFormDataEncodingMemoryThreshold: UInt64 = 1024 * 1024
+    public static let multipartFormDataEncodingMemoryThreshold: UInt64 = 1024 * 1024
     
     /// task创建后是否马上开始执行请求，默认true
     open var startRequestsImmediately: Bool = true
@@ -87,7 +87,7 @@ open class LGURLSessionManager {
     }
     
     /// 本类默认单例
-    open static let `default`: LGURLSessionManager = {
+    public static let `default`: LGURLSessionManager = {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = LGURLSessionManager.defaultHTTPHeaders
         // The default value is 6 in macOS, or 4 in iOS.
@@ -98,7 +98,7 @@ open class LGURLSessionManager {
     
     
     /// 默认header，包含一些客户端信息和当前动态库信息
-    open static let defaultHTTPHeaders: LGHTTPHeaders = {
+    public static let defaultHTTPHeaders: LGHTTPHeaders = {
         let acceptEncoding: String = "gzip;q=1.0, compress;q=0.5"
         
         let acceptLanguage = Locale.preferredLanguages.prefix(6).enumerated().map { index, languageCode in

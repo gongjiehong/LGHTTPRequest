@@ -332,7 +332,7 @@
 				TargetAttributes = {
 					FE15382F1F0C8F75009417E7 = {
 						CreatedOnToolsVersion = 8.3.3;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					FE29C9CC1FC3B99C0032EE0D = {
@@ -558,8 +558,7 @@
 				"SWIFT_INCLUDE_PATHS[sdk=watchos*]" = "${SRCROOT}/ModuleMap/watchos";
 				"SWIFT_INCLUDE_PATHS[sdk=watchsimulator*]" = "${SRCROOT}/ModuleMap/watchsimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
@@ -592,8 +591,7 @@
 				"SWIFT_INCLUDE_PATHS[sdk=macosx*]" = "${SRCROOT}/ModuleMap/macosx";
 				"SWIFT_INCLUDE_PATHS[sdk=watchos*]" = "${SRCROOT}/ModuleMap/watchos";
 				"SWIFT_INCLUDE_PATHS[sdk=watchsimulator*]" = "${SRCROOT}/ModuleMap/watchsimulator";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;

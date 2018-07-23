@@ -48,7 +48,7 @@ open class LGHTTPRequest {
     
     open var task: URLSessionTask? { return delegate.task }
     
-    open let session: URLSession
+    public let session: URLSession
     
     open var request: URLRequest? { return task?.originalRequest }
     
@@ -96,7 +96,7 @@ open class LGHTTPRequest {
         return self
     }
     
-    open static func authorizationHeader(user: String, password: String) -> (key: String, value: String)? {
+    public static func authorizationHeader(user: String, password: String) -> (key: String, value: String)? {
         guard let data = "\(user):\(password)".data(using: .utf8) else { return nil }
         
         let credential = data.base64EncodedString(options: [])

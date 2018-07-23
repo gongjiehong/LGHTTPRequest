@@ -227,7 +227,7 @@ public enum LGServerTrustPolicy {
 /// 安全策略管理器
 open class LGServerTrustPolicyManager {
     
-    open let policies: [String: LGServerTrustPolicy]
+    public let policies: [String: LGServerTrustPolicy]
     
 
     public init(policies: [String: LGServerTrustPolicy]) {

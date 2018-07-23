@@ -18,7 +18,7 @@ open class LGURLSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
     private let taskLock = DispatchSemaphore(value: 1)
     
     /// 串行队列，队列开始是暂停状态，主要用户添加完成执行的任务，等请求任务执行完成后将暂停状态设置为false,队列自动触发前面添加的任务
-    open let queue: OperationQueue
+    public let queue: OperationQueue
     
     /// 返回的数据data
     public var receivedData: Data? {
