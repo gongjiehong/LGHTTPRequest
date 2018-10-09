@@ -103,7 +103,7 @@ open class LGMultipartFormData {
         self.bodyParts = []
     
         // 苹果爸爸说的最佳buffer size 为1024（1KB）
-        self.streamBufferSize = 1024
+        self.streamBufferSize = 1_024
     }
     
     // MARK: - 通过stream 添加

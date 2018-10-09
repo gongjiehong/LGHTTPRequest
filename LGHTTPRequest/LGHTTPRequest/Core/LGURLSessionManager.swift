@@ -19,7 +19,7 @@ open class LGURLSessionManager {
     public let delegate: LGURLSessionDelegate
     
     /// 每个HTTP body在内存中的上限值，默认1MB，操作将使用stream进行处理
-    public static let multipartFormDataEncodingMemoryThreshold: UInt64 = 1024 * 1024
+    public static let multipartFormDataEncodingMemoryThreshold: UInt64 = 1_024 * 1_024
     
     /// task创建后是否马上开始执行请求，默认true
     open var startRequestsImmediately: Bool = true
@@ -32,6 +32,8 @@ open class LGURLSessionManager {
     
     /// 全局处理队列
     let queue = DispatchQueue(label: "com.LGHTTPRequest.SessionManager." + UUID().uuidString)
+    
+    let sessionQueue = OperationQueue()
     
     // MARK: -  构造方法
     
@@ -46,9 +48,10 @@ open class LGURLSessionManager {
                 serverTrustPolicyManager: LGServerTrustPolicyManager? = nil)
     {
         self.delegate = delegate
+        sessionQueue.maxConcurrentOperationCount = 20
         self.session = URLSession(configuration: configuration,
                                   delegate: delegate,
-                                  delegateQueue: nil)
+                                  delegateQueue: sessionQueue)
         
         commonInit(serverTrustPolicyManager: serverTrustPolicyManager)
     }
@@ -91,7 +94,7 @@ open class LGURLSessionManager {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = LGURLSessionManager.defaultHTTPHeaders
         // The default value is 6 in macOS, or 4 in iOS.
-//        configuration.httpMaximumConnectionsPerHost = 6
+        configuration.httpMaximumConnectionsPerHost = 10
         
         return LGURLSessionManager(configuration: configuration)
     }()

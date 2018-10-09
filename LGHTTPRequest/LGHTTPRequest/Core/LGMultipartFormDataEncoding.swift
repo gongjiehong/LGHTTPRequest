@@ -16,7 +16,7 @@ public protocol LGMultipartFormDataEncoding {
 
 
 public class LGMultipartFormDataEncoder: LGMultipartFormDataEncoding {
-    public let maxBodySize: UInt64 = 1024 * 1024 // 最大1MB
+    public let maxBodySize: UInt64 = 1_024 * 1_024 // 最大1MB
     
     
     static func randomBodyFileName() -> String {
