@@ -78,13 +78,6 @@
 		FEAEE22D204FED9300D621C4 /* LGResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGResult.swift; sourceTree = "<group>"; };
 		FEBE0ACC2003509F0000F168 /* LGParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGParameterEncoding.swift; sourceTree = "<group>"; };
 		FEE50723205667E100E49DAE /* LGResponseValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGResponseValidation.swift; sourceTree = "<group>"; };
-		FEF76E0C1FFF329F00CDA740 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		FEF76E0E1FFF329F00CDA740 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		FEF76E101FFF329F00CDA740 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		FEF76E121FFF329F00CDA740 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		FEF76E141FFF329F00CDA740 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		FEF76E161FFF329F00CDA740 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		FEF76E181FFF329F00CDA740 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				FE2E621C2003666A00269AB8 /* Package.swift */,
-				FEF76E0A1FFF329F00CDA740 /* ModuleMap */,
 				FE1538321F0C8F75009417E7 /* LGHTTPRequest */,
 				FE29C9CE1FC3B99C0032EE0D /* LGHTTPRequestTests */,
 				FE1538311F0C8F75009417E7 /* Products */,
@@ -200,76 +192,6 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		FEF76E0A1FFF329F00CDA740 /* ModuleMap */ = {
-			isa = PBXGroup;
-			children = (
-				FEF76E0B1FFF329F00CDA740 /* appletvos */,
-				FEF76E0D1FFF329F00CDA740 /* appletvsimulator */,
-				FEF76E0F1FFF329F00CDA740 /* iphoneos */,
-				FEF76E111FFF329F00CDA740 /* iphonesimulator */,
-				FEF76E131FFF329F00CDA740 /* macosx */,
-				FEF76E151FFF329F00CDA740 /* watchos */,
-				FEF76E171FFF329F00CDA740 /* watchsimulator */,
-			);
-			path = ModuleMap;
-			sourceTree = "<group>";
-		};
-		FEF76E0B1FFF329F00CDA740 /* appletvos */ = {
-			isa = PBXGroup;
-			children = (
-				FEF76E0C1FFF329F00CDA740 /* module.modulemap */,
-			);
-			path = appletvos;
-			sourceTree = "<group>";
-		};
-		FEF76E0D1FFF329F00CDA740 /* appletvsimulator */ = {
-			isa = PBXGroup;
-			children = (
-				FEF76E0E1FFF329F00CDA740 /* module.modulemap */,
-			);
-			path = appletvsimulator;
-			sourceTree = "<group>";
-		};
-		FEF76E0F1FFF329F00CDA740 /* iphoneos */ = {
-			isa = PBXGroup;
-			children = (
-				FEF76E101FFF329F00CDA740 /* module.modulemap */,
-			);
-			path = iphoneos;
-			sourceTree = "<group>";
-		};
-		FEF76E111FFF329F00CDA740 /* iphonesimulator */ = {
-			isa = PBXGroup;
-			children = (
-				FEF76E121FFF329F00CDA740 /* module.modulemap */,
-			);
-			path = iphonesimulator;
-			sourceTree = "<group>";
-		};
-		FEF76E131FFF329F00CDA740 /* macosx */ = {
-			isa = PBXGroup;
-			children = (
-				FEF76E141FFF329F00CDA740 /* module.modulemap */,
-			);
-			path = macosx;
-			sourceTree = "<group>";
-		};
-		FEF76E151FFF329F00CDA740 /* watchos */ = {
-			isa = PBXGroup;
-			children = (
-				FEF76E161FFF329F00CDA740 /* module.modulemap */,
-			);
-			path = watchos;
-			sourceTree = "<group>";
-		};
-		FEF76E171FFF329F00CDA740 /* watchsimulator */ = {
-			isa = PBXGroup;
-			children = (
-				FEF76E181FFF329F00CDA740 /* module.modulemap */,
-			);
-			path = watchsimulator;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -327,13 +249,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "龚杰洪";
 				TargetAttributes = {
 					FE15382F1F0C8F75009417E7 = {
 						CreatedOnToolsVersion = 8.3.3;
 						LastSwiftMigration = "";
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					FE29C9CC1FC3B99C0032EE0D = {
 						CreatedOnToolsVersion = 9.2;
@@ -438,15 +360,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -470,12 +400,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -492,15 +423,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -518,10 +457,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -533,9 +473,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: jiehong gong (V34NA466G3)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -550,13 +490,6 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				"SWIFT_INCLUDE_PATHS[sdk=appletvos*]" = "${SRCROOT}/ModuleMap/appletvos";
-				"SWIFT_INCLUDE_PATHS[sdk=appletvsimulator*]" = "${SRCROOT}/ModuleMap/appletvsimulator";
-				"SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" = "${SRCROOT}/ModuleMap/iphoneos";
-				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]" = "${SRCROOT}/ModuleMap/iphonesimulator";
-				"SWIFT_INCLUDE_PATHS[sdk=macosx*]" = "${SRCROOT}/ModuleMap/macosx";
-				"SWIFT_INCLUDE_PATHS[sdk=watchos*]" = "${SRCROOT}/ModuleMap/watchos";
-				"SWIFT_INCLUDE_PATHS[sdk=watchsimulator*]" = "${SRCROOT}/ModuleMap/watchsimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -567,9 +500,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: jiehong gong (V34NA466G3)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -584,13 +517,6 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				"SWIFT_INCLUDE_PATHS[sdk=appletvos*]" = "${SRCROOT}/ModuleMap/appletvos";
-				"SWIFT_INCLUDE_PATHS[sdk=appletvsimulator*]" = "${SRCROOT}/ModuleMap/appletvsimulator";
-				"SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" = "${SRCROOT}/ModuleMap/iphoneos";
-				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]" = "${SRCROOT}/ModuleMap/iphonesimulator";
-				"SWIFT_INCLUDE_PATHS[sdk=macosx*]" = "${SRCROOT}/ModuleMap/macosx";
-				"SWIFT_INCLUDE_PATHS[sdk=watchos*]" = "${SRCROOT}/ModuleMap/watchos";
-				"SWIFT_INCLUDE_PATHS[sdk=watchsimulator*]" = "${SRCROOT}/ModuleMap/watchsimulator";
 				SWIFT_VERSION = 4.2;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -616,6 +542,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cxylg.LGHTTPRequestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -641,6 +568,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cxylg.LGHTTPRequestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

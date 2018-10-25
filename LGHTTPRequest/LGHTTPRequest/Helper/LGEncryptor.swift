@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CCommonCrypto
+import CommonCrypto
 
 
 /// 加密器出现的错误处理

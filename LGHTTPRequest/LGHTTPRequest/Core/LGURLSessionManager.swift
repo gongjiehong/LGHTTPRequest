@@ -48,10 +48,9 @@ open class LGURLSessionManager {
                 serverTrustPolicyManager: LGServerTrustPolicyManager? = nil)
     {
         self.delegate = delegate
-        sessionQueue.maxConcurrentOperationCount = 20
         self.session = URLSession(configuration: configuration,
                                   delegate: delegate,
-                                  delegateQueue: sessionQueue)
+                                  delegateQueue: nil)
         
         commonInit(serverTrustPolicyManager: serverTrustPolicyManager)
     }
