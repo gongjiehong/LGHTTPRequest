@@ -43,7 +43,7 @@ open class LGDataRequest: LGHTTPRequest {
     }
     
     open var expectedContentLength: Int64 {
-        return self.dataDelegate.expectedContentLength ?? NSURLSessionTransferSizeUnknown
+        return self.dataDelegate.expectedContentLength
     }
     
     @discardableResult
@@ -53,7 +53,9 @@ open class LGDataRequest: LGHTTPRequest {
     }
     
     @discardableResult
-    open func downloadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping LGProgressHandler) -> Self {
+    open func downloadProgress(queue: DispatchQueue = DispatchQueue.main,
+                               closure: @escaping LGProgressHandler) -> Self
+    {
         dataDelegate.progressHandler = (closure, queue)
         return self
     }

@@ -48,9 +48,18 @@ open class LGURLSessionManager {
                 serverTrustPolicyManager: LGServerTrustPolicyManager? = nil)
     {
         self.delegate = delegate
+        
+        /// 串行队列处理所有回调，不阻塞主线程
+        let callbackQueue: OperationQueue = {
+            let callbackQueue = OperationQueue()
+            callbackQueue.qualityOfService = .default
+            callbackQueue.maxConcurrentOperationCount = 1
+            return callbackQueue
+        }()
+        
         self.session = URLSession(configuration: configuration,
                                   delegate: delegate,
-                                  delegateQueue: nil)
+                                  delegateQueue: callbackQueue)
         
         commonInit(serverTrustPolicyManager: serverTrustPolicyManager)
     }
@@ -301,6 +310,107 @@ open class LGURLSessionManager {
         
         
         let downloadRequest = LGDownloadRequest(session: session, requestTask: downloadTask, error: error)
+        downloadRequest.downloadDelegate.destinationURL = destinationURL
+        
+        if startRequestsImmediately {
+            downloadRequest.resume()
+        }
+        
+        return downloadRequest
+    }
+    
+    // MARK: - Stream Download Request
+    
+    // MARK: URL Request
+    @discardableResult
+    open func streamDownload(_ url: LGURLConvertible,
+                       method: LGHTTPMethod = .get,
+                       parameters: LGParameters? = nil,
+                       encoding: LGParameterEncoding = LGURLEncoding.default,
+                       headers: LGHTTPHeaders? = nil,
+                       to destinationURL: URL? = nil) -> LGStreamDownloadRequest
+    {
+        do {
+            let urlRequest = try URLRequest(url: url, method: method, headers: headers)
+            let encodedURLRequest = try encoding.encode(urlRequest, with: parameters)
+            return streamDownload(encodedURLRequest, to: destinationURL)
+        } catch {
+            return streamDownload(nil, to: destinationURL, failedWith: error)
+        }
+    }
+    
+    @discardableResult
+    open func streamDownload(_ urlRequest: LGURLRequestConvertible,
+                             to destinationURL: URL? = nil) -> LGStreamDownloadRequest
+    {
+        do {
+            let resumeDataURL = LGStreamDownloadTaskDelegate.temporaryURL(fromURLRequest: urlRequest)
+            var resumeData: Data?
+            if FileManager.default.fileExists(atPath: resumeDataURL.path) {
+                do {
+                    resumeData = try Data(contentsOf: resumeDataURL)
+                } catch {
+                    // catch到错误，保证请求能继续
+                }
+            }
+            let urlRequest = try urlRequest.asURLRequest()
+            return streamDownload(.request(urlRequest, resumeData), to: destinationURL)
+        } catch {
+            return streamDownload(nil, to: destinationURL, failedWith: error)
+        }
+    }
+    
+    
+    @discardableResult
+    open func streamDownload(_ urlRequest: LGURLRequestConvertible,
+                             resumingWith resumeData: Data,
+                             to destinationURL: URL? = nil) -> LGStreamDownloadRequest
+    {
+        do {
+            let originalRequest = try urlRequest.asURLRequest()
+            return streamDownload(.request(originalRequest, resumeData), to: destinationURL)
+        } catch {
+            return streamDownload(nil, to: destinationURL, failedWith: error)
+        }
+    }
+    
+    // MARK: Private - Download Implementation
+    
+    private func streamDownload(_ downloadable: LGStreamDownloadRequest.StreamDownloadable,
+                                to destinationURL: URL?) -> LGStreamDownloadRequest
+    {
+        do {
+            let task = try downloadable.task(session: session, adapter: adapter, queue: queue)
+            let download = LGStreamDownloadRequest(session: session, requestTask: .streamDownload(downloadable, task))
+            
+            download.downloadDelegate.destinationURL = destinationURL
+            
+            delegate[task] = download
+            
+            if startRequestsImmediately {
+                download.resume()
+            }
+            
+            return download
+        } catch {
+            return streamDownload(downloadable, to: destinationURL, failedWith: error)
+        }
+    }
+    
+    private func streamDownload(_ downloadable: LGStreamDownloadRequest.StreamDownloadable?,
+                                to destinationURL: URL?,
+                                failedWith error: Error) -> LGStreamDownloadRequest
+    {
+        var downloadTask: LGHTTPRequest.RequestTask = .streamDownload(nil, nil)
+        
+        if let downloadable = downloadable {
+            downloadTask = .streamDownload(downloadable, nil)
+        }
+        
+        
+        let downloadRequest = LGStreamDownloadRequest(session: session,
+                                                      requestTask: downloadTask,
+                                                      error: error)
         downloadRequest.downloadDelegate.destinationURL = destinationURL
         
         if startRequestsImmediately {

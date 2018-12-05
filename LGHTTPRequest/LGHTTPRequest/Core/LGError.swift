@@ -65,6 +65,8 @@ public enum LGError: Error {
     case responseValidationFailed(reason: ResponseValidationFailureReason)
     
     case responseSerializationFailed(reason: ResponseSerializationFailureReason)
+    
+    case invalidStringEncoding
 }
 
 // MARK: - 错误类型转换为Bool
@@ -274,6 +276,8 @@ extension LGError: LocalizedError {
             return reason.localizedDescription
         case .responseSerializationFailed(let reason):
             return reason.localizedDescription
+        case .invalidStringEncoding:
+            return "无效的字符编码，无法通过UTF8编码转换为Data"
         }
     }
 }

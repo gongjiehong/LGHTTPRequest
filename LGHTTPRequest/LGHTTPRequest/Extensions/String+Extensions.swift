@@ -15,7 +15,7 @@ extension String {
     /// 返回当前String的MD5值
     ///
     /// - Returns: 当前String的MD5或nil
-    public func md5Hash() -> String? {        
+    public func md5Hash() -> String? {
         guard let data = self.data(using: String.Encoding.utf8) else { return nil }
         
         return data.md5Hash()

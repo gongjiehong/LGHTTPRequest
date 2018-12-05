@@ -52,23 +52,7 @@ extension LGMobileNetworkType {
     }
     
     public var debugDescription: String {
-        switch self {
-        case CTRadioAccessTechnologyGPRS, CTRadioAccessTechnologyEdge:
-            return self + "2G"
-        case CTRadioAccessTechnologyWCDMA,
-             CTRadioAccessTechnologyHSDPA,
-             CTRadioAccessTechnologyHSUPA,
-             CTRadioAccessTechnologyCDMA1x,
-             CTRadioAccessTechnologyCDMAEVDORev0,
-             CTRadioAccessTechnologyCDMAEVDORevA,
-             CTRadioAccessTechnologyCDMAEVDORevB,
-             CTRadioAccessTechnologyeHRPD:
-            return self + "3G"
-        case CTRadioAccessTechnologyLTE:
-            return self + "4G"
-        default:
-            return self + "Unknown"
-        }
+        return self + "__" + shortMobileNetworkType
     }
 }
 
@@ -280,7 +264,8 @@ public class LGReachability {
 // MARK: -  重载 == 运算符，判断网络连通状态是否相等
 extension LGReachability.LGNetworkReachabilityStatus: Equatable {}
 
-public func == (lhs: LGReachability.LGNetworkReachabilityStatus, rhs: LGReachability.LGNetworkReachabilityStatus) -> Bool
+public func == (lhs: LGReachability.LGNetworkReachabilityStatus,
+                rhs: LGReachability.LGNetworkReachabilityStatus) -> Bool
 {
     switch (lhs, rhs) {
     case (.unknown, .unknown):

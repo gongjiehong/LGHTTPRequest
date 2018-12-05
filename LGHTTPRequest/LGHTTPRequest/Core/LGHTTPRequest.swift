@@ -22,6 +22,7 @@ open class LGHTTPRequest {
     enum RequestTask {
         case data(LGTaskConvertible?, URLSessionTask?)
         case download(LGTaskConvertible?, URLSessionTask?)
+        case streamDownload(LGTaskConvertible?, URLSessionTask?)
         case upload(LGTaskConvertible?, URLSessionTask?)
         case stream(LGTaskConvertible?, URLSessionTask?)
     }
@@ -73,6 +74,9 @@ open class LGHTTPRequest {
             self.originalTask = originalTask
         case .stream(let originalTask, let task):
             taskDelegate = LGURLSessionTaskDelegate(task: task)
+            self.originalTask = originalTask
+        case .streamDownload(let originalTask, let task):
+            taskDelegate = LGStreamDownloadTaskDelegate(task: task)
             self.originalTask = originalTask
         }
         

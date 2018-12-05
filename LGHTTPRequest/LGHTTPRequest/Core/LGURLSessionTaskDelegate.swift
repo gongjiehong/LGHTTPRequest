@@ -82,10 +82,10 @@ open class LGURLSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
     var taskDidCompleteWithError: ((URLSession, URLSessionTask, Error?) -> Void)?
     
     public func urlSession(_ session: URLSession,
-                          task: URLSessionTask,
-                          willPerformHTTPRedirection response: HTTPURLResponse,
-                          newRequest request: URLRequest,
-                          completionHandler: @escaping (URLRequest?) -> Void)
+                           task: URLSessionTask,
+                           willPerformHTTPRedirection response: HTTPURLResponse,
+                           newRequest request: URLRequest,
+                           completionHandler: @escaping (URLRequest?) -> Void)
     {
         var redirectRequest: URLRequest? = request
         
@@ -97,9 +97,9 @@ open class LGURLSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
     }
     
     public func urlSession(_ session: URLSession,
-                          task: URLSessionTask,
-                          didReceive challenge: URLAuthenticationChallenge,
-                          completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
+                           task: URLSessionTask,
+                           didReceive challenge: URLAuthenticationChallenge,
+                           completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
     {
         var disposition = URLSession.AuthChallengeDisposition.performDefaultHandling
         var credential: URLCredential?
@@ -165,7 +165,6 @@ open class LGURLSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
                     downloadDelegate.resumeData = resumeData
                 }
             }
-            
             queue.isSuspended = false
         }
     }
@@ -174,12 +173,12 @@ open class LGURLSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
 
 
 // MARK: - LGDataTaskDelegate with URLSessionDataDelegate
-class LGDataTaskDelegate: LGURLSessionTaskDelegate, URLSessionDataDelegate {
+open class LGDataTaskDelegate: LGURLSessionTaskDelegate, URLSessionDataDelegate {
     var dataTask: URLSessionDataTask {
         return self.task as! URLSessionDataTask
     }
     
-    override var receivedData: Data? {
+    override public var receivedData: Data? {
         if dataStream != nil {
             return nil
         } else {
@@ -195,12 +194,12 @@ class LGDataTaskDelegate: LGURLSessionTaskDelegate, URLSessionDataDelegate {
     var totalBytesReceived: Int64 = 0
     var mutableData: Data
     
-    var expectedContentLength: Int64?
+    var expectedContentLength: Int64
     
     override init(task: URLSessionTask?) {
         mutableData = Data()
         progress = Progress(totalUnitCount: 0)
-        
+        expectedContentLength = NSURLSessionTransferSizeUnknown
         super.init(task: task)
     }
     
@@ -210,7 +209,7 @@ class LGDataTaskDelegate: LGURLSessionTaskDelegate, URLSessionDataDelegate {
         progress = Progress(totalUnitCount: 0)
         totalBytesReceived = 0
         mutableData = Data()
-        expectedContentLength = nil
+        expectedContentLength = NSURLSessionTransferSizeUnknown
     }
     
     // MARK: delegete to block
@@ -237,8 +236,8 @@ class LGDataTaskDelegate: LGURLSessionTaskDelegate, URLSessionDataDelegate {
     }
     
     public func urlSession(_ session: URLSession,
-                    dataTask: URLSessionDataTask,
-                    didBecome downloadTask: URLSessionDownloadTask)
+                           dataTask: URLSessionDataTask,
+                           didBecome downloadTask: URLSessionDownloadTask)
     {
         dataTaskDidBecomeDownloadTask?(session, dataTask, downloadTask)
     }
@@ -283,6 +282,193 @@ class LGDataTaskDelegate: LGURLSessionTaskDelegate, URLSessionDataDelegate {
         }
         
         completionHandler(cachedResponse)
+    }
+}
+
+class LGStreamDownloadTaskDelegate: LGDataTaskDelegate {
+    var resumeData: Data?
+    override var receivedData: Data? { return mutableData }
+    
+    var temporaryURL: URL
+    var destinationURL: URL?
+    
+    private let downloadDirName: String = "com.LGHTTPRequest.download"
+    
+    static func temporaryURL(fromURLRequest request: LGURLRequestConvertible) -> URL {
+        var fileName: String
+        do {
+            let url = try request.asURLRequest().url
+            if let url = url {
+                fileName = try url.getFileName()
+            } else {
+                fileName = UUID().uuidString
+            }
+        } catch {
+            fileName = UUID().uuidString
+        }
+
+        let downloadDirName: String = "com.LGHTTPRequest.download"
+        
+        var temporaryURL = FileManager.lg_temporaryDirectoryURL.appendingPathComponent(downloadDirName,
+                                                                                       isDirectory: true)
+        FileManager.createDirectory(withURL: temporaryURL)
+        temporaryURL = temporaryURL.appendingPathComponent(fileName, isDirectory: false)
+        return temporaryURL
+    }
+    
+    override init(task: URLSessionTask?) {
+        var fileName: String
+        if let url = task?.currentRequest?.url {
+            do {
+                fileName = try url.getFileName()
+            } catch {
+                fileName = UUID().uuidString
+            }
+        } else {
+            fileName = UUID().uuidString
+        }
+        
+        var temporaryURL = FileManager.lg_temporaryDirectoryURL.appendingPathComponent(downloadDirName,
+                                                                                       isDirectory: true)
+        FileManager.createDirectory(withURL: temporaryURL)
+        temporaryURL = temporaryURL.appendingPathComponent(fileName, isDirectory: false)
+        
+        
+        var destinationURL = FileManager.lg_cacheDirectoryURL.appendingPathComponent(downloadDirName,
+                                                                                     isDirectory: true)
+        FileManager.createDirectory(withURL: destinationURL)
+        destinationURL = destinationURL.appendingPathComponent(fileName,
+                                                               isDirectory: false)
+        
+        self.temporaryURL = temporaryURL
+        self.destinationURL = destinationURL
+        super.init(task: task)
+    }
+    
+    init(task: URLSessionTask?, destinationURL: URL? = nil, resumeData: Data? = nil) {
+        var fileName: String
+        if let url = task?.currentRequest?.url {
+            do {
+                fileName = try url.getFileName()
+            } catch {
+                fileName = UUID().uuidString
+            }
+        } else {
+            fileName = UUID().uuidString
+        }
+        
+        var temporaryURL = FileManager.lg_temporaryDirectoryURL.appendingPathComponent(downloadDirName,
+                                                                                       isDirectory: true)
+        FileManager.createDirectory(withURL: temporaryURL)
+        temporaryURL = temporaryURL.appendingPathComponent(fileName, isDirectory: false)
+        
+        self.temporaryURL = temporaryURL
+        
+        if let destinationURL = destinationURL {
+            self.destinationURL = destinationURL
+            FileManager.createDirectory(withURL: destinationURL.deletingLastPathComponent())
+        } else {
+            var destinationURL = FileManager.lg_cacheDirectoryURL.appendingPathComponent(downloadDirName,
+                                                                                         isDirectory: true)
+            FileManager.createDirectory(withURL: destinationURL)
+            destinationURL = destinationURL.appendingPathComponent(fileName,
+                                                                   isDirectory: false)
+            self.destinationURL = destinationURL
+        }
+        
+        super.init(task: task)
+        
+        if let resumeData = resumeData {
+            mutableData.append(resumeData)
+        }
+    }
+    
+    override func reset() {
+        super.reset()
+        
+        progress = Progress(totalUnitCount: 0)
+        totalBytesReceived = 0
+        mutableData = Data()
+        expectedContentLength = NSURLSessionTransferSizeUnknown
+        resumeData = nil
+    }
+    
+    // MARK: delegete to block
+    public override func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data)
+    {
+        if let block = dataTaskDidReceiveData {
+            block(session, dataTask, data)
+        } else {
+            if let dataStream = dataStream {
+                dataStream(data)
+            } else {
+                mutableData.append(data)
+                
+                // Write Data
+                let inputStream = InputStream(data: data)
+                // 此处需要先创建文件夹，如果未创建文件夹则无法使用stream
+                guard let outputStream = OutputStream(url: temporaryURL,
+                                                      append: true) else { return }
+                
+                inputStream.schedule(in: RunLoop.current, forMode: RunLoop.Mode.default)
+                outputStream.schedule(in: RunLoop.current, forMode: RunLoop.Mode.default)
+                inputStream.open()
+                outputStream.open()
+                
+                while inputStream.hasBytesAvailable && outputStream.hasSpaceAvailable {
+                    var buffer = [UInt8](repeating: 0, count: 1_024)
+                    
+                    let bytesRead = inputStream.read(&buffer, maxLength: 1_024)
+                    if inputStream.streamError != nil || bytesRead < 0 {
+                        break
+                    }
+                    
+                    let bytesWritten = outputStream.write(&buffer, maxLength: bytesRead)
+                    if outputStream.streamError != nil || bytesWritten < 0 {
+                        break
+                    }
+                    
+                    if bytesRead == 0 && bytesWritten == 0 {
+                        break
+                    }
+                }
+                
+                inputStream.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
+                outputStream.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
+                
+                inputStream.close()
+                outputStream.close()
+            }
+            
+            let bytesReceived = Int64(data.count)
+            totalBytesReceived += bytesReceived
+            
+            /// 在返回数据的时候获取要传输的总数据量
+            let totalBytesExpected = dataTask.response?.expectedContentLength ?? NSURLSessionTransferSizeUnknown
+            
+            progress.totalUnitCount = totalBytesExpected
+            progress.completedUnitCount = totalBytesReceived
+            
+            if let progressHandler = progressHandler {
+                progressHandler.queue.async {
+                    progressHandler.closure(self.progress)
+                }
+            }
+        }
+    }
+    
+    override func urlSession(_ session: URLSession,
+                             task: URLSessionTask,
+                             didCompleteWithError error: Error?)
+    {
+        do {
+            if FileManager.default.fileExists(atPath: self.destinationURL!.path) {
+                try FileManager.default.removeItem(at: self.destinationURL!)
+            }
+            try FileManager.default.moveItem(at: self.temporaryURL, to: self.destinationURL!)
+        } catch {
+        }
+        super.urlSession(session, task: task, didCompleteWithError: error)
     }
 }
 

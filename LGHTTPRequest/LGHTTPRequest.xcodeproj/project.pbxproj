@@ -26,6 +26,8 @@
 		FE41A3651F14893100D6673B /* LGMultipartFormDataEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE41A3641F14893100D6673B /* LGMultipartFormDataEncoding.swift */; };
 		FE43FB9F1F0E25DA002A1488 /* LGReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE43FB9E1F0E25DA002A1488 /* LGReachability.swift */; };
 		FE43FBA11F0E3129002A1488 /* LGMultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE43FBA01F0E3129002A1488 /* LGMultipartFormData.swift */; };
+		FE4FB97A21B682FE0067A8AA /* LGStreamDownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FB97921B682FE0067A8AA /* LGStreamDownloadRequest.swift */; };
+		FE4FB98621B691C90067A8AA /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FB98521B691C90067A8AA /* FileManager+Extensions.swift */; };
 		FE54753420522ACB00161A5B /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE54753320522ACB00161A5B /* DispatchQueue+Extension.swift */; };
 		FEAD7EA12060B6AA0019B34A /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD7EA02060B6AA0019B34A /* Data+Extensions.swift */; };
 		FEAD7EA32060C1B10019B34A /* LGEncryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD7EA22060C1B10019B34A /* LGEncryptor.swift */; };
@@ -70,6 +72,10 @@
 		FE41A3641F14893100D6673B /* LGMultipartFormDataEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGMultipartFormDataEncoding.swift; sourceTree = "<group>"; };
 		FE43FB9E1F0E25DA002A1488 /* LGReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGReachability.swift; sourceTree = "<group>"; };
 		FE43FBA01F0E3129002A1488 /* LGMultipartFormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGMultipartFormData.swift; sourceTree = "<group>"; };
+		FE4FB95C21B682710067A8AA /* LGHTTPRequest_watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGHTTPRequest_watchOS.h; sourceTree = "<group>"; };
+		FE4FB95D21B682710067A8AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FE4FB97921B682FE0067A8AA /* LGStreamDownloadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGStreamDownloadRequest.swift; sourceTree = "<group>"; };
+		FE4FB98521B691C90067A8AA /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		FE54753320522ACB00161A5B /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		FEAD7EA02060B6AA0019B34A /* Data+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extensions.swift"; sourceTree = "<group>"; };
 		FEAD7EA22060C1B10019B34A /* LGEncryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGEncryptor.swift; sourceTree = "<group>"; };
@@ -105,6 +111,7 @@
 				FE2E621C2003666A00269AB8 /* Package.swift */,
 				FE1538321F0C8F75009417E7 /* LGHTTPRequest */,
 				FE29C9CE1FC3B99C0032EE0D /* LGHTTPRequestTests */,
+				FE4FB95B21B682710067A8AA /* LGHTTPRequest-watchOS */,
 				FE1538311F0C8F75009417E7 /* Products */,
 				FE29C9D81FC3BC020032EE0D /* Frameworks */,
 			);
@@ -136,6 +143,7 @@
 			children = (
 				FE2E620620035F9E00269AB8 /* LGHTTPRequest.swift */,
 				FE2E620520035F9E00269AB8 /* LGDataRequest.swift */,
+				FE4FB97921B682FE0067A8AA /* LGStreamDownloadRequest.swift */,
 				FE2E620820035F9E00269AB8 /* LGDownloadRequest.swift */,
 				FE2E620720035F9E00269AB8 /* LGStreamRequest.swift */,
 				FE2E620920035F9F00269AB8 /* LGUploadRequest.swift */,
@@ -176,6 +184,7 @@
 				FE2E621420035FA600269AB8 /* String+Extensions.swift */,
 				FE54753320522ACB00161A5B /* DispatchQueue+Extension.swift */,
 				FEAD7EA02060B6AA0019B34A /* Data+Extensions.swift */,
+				FE4FB98521B691C90067A8AA /* FileManager+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -190,6 +199,15 @@
 				FEAD7EA22060C1B10019B34A /* LGEncryptor.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		FE4FB95B21B682710067A8AA /* LGHTTPRequest-watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				FE4FB95C21B682710067A8AA /* LGHTTPRequest_watchOS.h */,
+				FE4FB95D21B682710067A8AA /* Info.plist */,
+			);
+			path = "LGHTTPRequest-watchOS";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,6 +338,8 @@
 				FE2E620C20035F9F00269AB8 /* LGURLSessionTaskDelegate.swift in Sources */,
 				FEAD7EA12060B6AA0019B34A /* Data+Extensions.swift in Sources */,
 				FE2E621120035F9F00269AB8 /* LGUploadRequest.swift in Sources */,
+				FE4FB97A21B682FE0067A8AA /* LGStreamDownloadRequest.swift in Sources */,
+				FE4FB98621B691C90067A8AA /* FileManager+Extensions.swift in Sources */,
 				FE43FBA11F0E3129002A1488 /* LGMultipartFormData.swift in Sources */,
 				FE2E621220035F9F00269AB8 /* LGURLSessionDelegate.swift in Sources */,
 				FEE50724205667E100E49DAE /* LGResponseValidation.swift in Sources */,

@@ -47,12 +47,3 @@ public class LGMultipartFormDataEncoder: LGMultipartFormDataEncoding {
         
     }
 }
-
-
-extension FileManager {
-    static var lg_cacheDirectoryPath: String {
-        return NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory,
-                                                   FileManager.SearchPathDomainMask.userDomainMask,
-                                                   true)[0]
-    }
-}

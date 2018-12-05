@@ -24,7 +24,35 @@ public protocol LGURLConvertible {
     func asURL() throws -> URL
 }
 
-extension String: LGURLConvertible {
+// MARK: - 根据URL获取文件名和缓存key
+
+public protocol LGURLSource: LGURLConvertible {
+    func getFileName() throws -> String
+    func getCacheKey() throws -> String
+}
+
+
+extension String: LGURLSource {
+    public func getFileName() throws -> String {
+        let url = try self.asURL()
+        let absoluteString = url.absoluteString
+        if let cacheKey = absoluteString.md5Hash() {
+            return cacheKey + url.pathExtension
+        } else {
+            throw LGError.invalidStringEncoding
+        }
+    }
+    
+    public func getCacheKey() throws -> String {
+        let url = try self.asURL()
+        let absoluteString = url.absoluteString
+        if let cacheKey = absoluteString.md5Hash() {
+            return cacheKey
+        } else {
+            throw LGError.invalidStringEncoding
+        }
+    }
+    
     public func asURL() throws -> URL {
         guard let url = URL(string: self) else {
             throw LGError.invalidURL(url: self)
@@ -33,13 +61,49 @@ extension String: LGURLConvertible {
     }
 }
 
-extension URL: LGURLConvertible {
+extension URL: LGURLSource {
+    public func getFileName() throws -> String {
+        if let cacheKey = absoluteString.md5Hash() {
+            return cacheKey + self.pathExtension
+        } else {
+            throw LGError.invalidStringEncoding
+        }
+    }
+    
+    public func getCacheKey() throws -> String {
+        if let cacheKey = absoluteString.md5Hash() {
+            return cacheKey
+        } else {
+            throw LGError.invalidStringEncoding
+        }
+    }
+    
     public func asURL() throws -> URL {
         return self
     }
 }
 
-extension URLComponents: LGURLConvertible {
+extension URLComponents: LGURLSource {
+    public func getFileName() throws -> String {
+        let url = try self.asURL()
+        let absoluteString = url.absoluteString
+        if let cacheKey = absoluteString.md5Hash() {
+            return cacheKey + url.pathExtension
+        } else {
+            throw LGError.invalidStringEncoding
+        }
+    }
+    
+    public func getCacheKey() throws -> String {
+        let url = try self.asURL()
+        let absoluteString = url.absoluteString
+        if let cacheKey = absoluteString.md5Hash() {
+            return cacheKey
+        } else {
+            throw LGError.invalidStringEncoding
+        }
+    }
+    
     public func asURL() throws -> URL {
         guard let url = self.url else {
             throw LGError.invalidURL(url: self)
@@ -87,3 +151,5 @@ extension URLRequest {
         return try adapter.adapt(self)
     }
 }
+
+
