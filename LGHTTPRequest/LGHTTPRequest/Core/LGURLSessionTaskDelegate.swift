@@ -290,7 +290,7 @@ class LGStreamDownloadTaskDelegate: LGDataTaskDelegate {
     override var receivedData: Data? { return mutableData }
     
     var temporaryURL: URL
-    var destinationURL: URL?
+    var destinationURL: URL
     
     private let downloadDirName: String = "com.LGHTTPRequest.download"
     
@@ -393,6 +393,29 @@ class LGStreamDownloadTaskDelegate: LGDataTaskDelegate {
         resumeData = nil
     }
     
+    public override func urlSession(_ session: URLSession,
+                           dataTask: URLSessionDataTask,
+                           didReceive response: URLResponse,
+                           completionHandler: @escaping (URLSession.ResponseDisposition) -> Void)
+    {
+        var disposition: URLSession.ResponseDisposition = .allow
+        
+        expectedContentLength = response.expectedContentLength
+        
+        if let block = dataTaskDidReceiveResponse {
+            disposition = block(session, dataTask, response)
+        }
+        
+        completionHandler(disposition)
+    }
+    
+    public override func urlSession(_ session: URLSession,
+                           dataTask: URLSessionDataTask,
+                           didBecome downloadTask: URLSessionDownloadTask)
+    {
+        dataTaskDidBecomeDownloadTask?(session, dataTask, downloadTask)
+    }
+    
     // MARK: delegete to block
     public override func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data)
     {
@@ -462,10 +485,10 @@ class LGStreamDownloadTaskDelegate: LGDataTaskDelegate {
                              didCompleteWithError error: Error?)
     {
         do {
-            if FileManager.default.fileExists(atPath: self.destinationURL!.path) {
-                try FileManager.default.removeItem(at: self.destinationURL!)
+            if FileManager.default.fileExists(atPath: self.destinationURL.path) {
+                try FileManager.default.removeItem(at: self.destinationURL)
             }
-            try FileManager.default.moveItem(at: self.temporaryURL, to: self.destinationURL!)
+            try FileManager.default.moveItem(at: self.temporaryURL, to: self.destinationURL)
         } catch {
         }
         super.urlSession(session, task: task, didCompleteWithError: error)

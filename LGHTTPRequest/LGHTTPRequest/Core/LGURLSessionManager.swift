@@ -383,7 +383,9 @@ open class LGURLSessionManager {
             let task = try downloadable.task(session: session, adapter: adapter, queue: queue)
             let download = LGStreamDownloadRequest(session: session, requestTask: .streamDownload(downloadable, task))
             
-            download.downloadDelegate.destinationURL = destinationURL
+            if let destinationURL = destinationURL {
+                download.downloadDelegate.destinationURL = destinationURL
+            }
             
             delegate[task] = download
             
@@ -411,7 +413,9 @@ open class LGURLSessionManager {
         let downloadRequest = LGStreamDownloadRequest(session: session,
                                                       requestTask: downloadTask,
                                                       error: error)
-        downloadRequest.downloadDelegate.destinationURL = destinationURL
+        if let destinationURL = destinationURL {
+            downloadRequest.downloadDelegate.destinationURL = destinationURL
+        }
         
         if startRequestsImmediately {
             downloadRequest.resume()

@@ -23,7 +23,7 @@ open class LGStreamDownloadRequest: LGDataRequest {
                         // 设置断点续传header
                         urlRequest.addValue("bytes=\(resumeData.count)-", forHTTPHeaderField: "Range")
                     }
-                    task = queue.sync { session.downloadTask(with: urlRequest) }
+                    task = queue.sync { session.dataTask(with: urlRequest) }
                 }
                 return task
             } catch {
@@ -66,6 +66,6 @@ open class LGStreamDownloadRequest: LGDataRequest {
     }
     
     public var destinationURL: URL {
-        return self.downloadDelegate.destinationURL!
+        return self.downloadDelegate.destinationURL
     }
 }

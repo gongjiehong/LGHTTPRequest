@@ -66,18 +66,23 @@ open class LGHTTPRequest {
         case .data(let originalTask, let task):
             taskDelegate = LGDataTaskDelegate(task: task)
             self.originalTask = originalTask
+            break
         case .download(let originalTask, let task):
             taskDelegate = LGDownloadTaskDelegate(task: task)
             self.originalTask = originalTask
+            break
         case .upload(let originalTask, let task):
             taskDelegate = LGUploadTaskDelegate(task: task)
             self.originalTask = originalTask
+            break
         case .stream(let originalTask, let task):
             taskDelegate = LGURLSessionTaskDelegate(task: task)
             self.originalTask = originalTask
+            break
         case .streamDownload(let originalTask, let task):
             taskDelegate = LGStreamDownloadTaskDelegate(task: task)
             self.originalTask = originalTask
+            break
         }
         
         delegate.error = error

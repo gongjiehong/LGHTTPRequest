@@ -37,7 +37,7 @@ extension String: LGURLSource {
         let url = try self.asURL()
         let absoluteString = url.absoluteString
         if let cacheKey = absoluteString.md5Hash() {
-            return cacheKey + url.pathExtension
+            return cacheKey + "." + url.pathExtension
         } else {
             throw LGError.invalidStringEncoding
         }
@@ -64,7 +64,7 @@ extension String: LGURLSource {
 extension URL: LGURLSource {
     public func getFileName() throws -> String {
         if let cacheKey = absoluteString.md5Hash() {
-            return cacheKey + self.pathExtension
+            return cacheKey + "." + self.pathExtension
         } else {
             throw LGError.invalidStringEncoding
         }
@@ -88,7 +88,7 @@ extension URLComponents: LGURLSource {
         let url = try self.asURL()
         let absoluteString = url.absoluteString
         if let cacheKey = absoluteString.md5Hash() {
-            return cacheKey + url.pathExtension
+            return cacheKey + "." + url.pathExtension
         } else {
             throw LGError.invalidStringEncoding
         }
