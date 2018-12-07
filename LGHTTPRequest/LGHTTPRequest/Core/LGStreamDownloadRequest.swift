@@ -19,10 +19,10 @@ open class LGStreamDownloadRequest: LGDataRequest {
                 switch self {
                 case let .request(urlRequest, data):
                     var urlRequest = try urlRequest.adapt(using: adapter)
-//                    if let resumeData = data {
-//                        // 设置断点续传header
-//                        urlRequest.addValue("bytes=\(resumeData.count)-", forHTTPHeaderField: "Range")
-//                    }
+                    if let resumeData = data {
+                        // 设置断点续传header
+                        urlRequest.addValue("bytes=\(resumeData.count)-", forHTTPHeaderField: "Range")
+                    }
                     task = queue.sync { session.dataTask(with: urlRequest) }
                 }
                 return task

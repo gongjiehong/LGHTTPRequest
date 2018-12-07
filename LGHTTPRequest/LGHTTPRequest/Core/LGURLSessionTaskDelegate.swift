@@ -378,10 +378,10 @@ class LGStreamDownloadTaskDelegate: LGDataTaskDelegate {
         
         super.init(task: task)
         
-//        if let resumeData = resumeData {
-//            mutableData.removeAll()
-//            mutableData.append(resumeData)
-//        }
+        if let resumeData = resumeData {
+            mutableData.removeAll()
+            mutableData.append(resumeData)
+        }
     }
     
     override func reset() {

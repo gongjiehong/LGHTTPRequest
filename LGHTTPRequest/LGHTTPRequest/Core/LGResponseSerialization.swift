@@ -52,7 +52,6 @@ extension LGDataRequest {
         
         return self
     }
-    
 }
 
 extension LGDownloadRequest {
