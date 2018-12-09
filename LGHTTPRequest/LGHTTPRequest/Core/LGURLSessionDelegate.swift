@@ -145,6 +145,34 @@ open class LGURLSessionDelegate: NSObject {
         }
     }
     
+    private var streamDownloadRequests: [String: LGStreamDownloadRequest] = [String: LGStreamDownloadRequest]()
+    private let streamDownloadLock = DispatchSemaphore(value: 1)
+    open subscript(url: LGURLConvertible) -> LGStreamDownloadRequest? {
+        get {
+            _ = streamDownloadLock.wait(timeout: DispatchTime.distantFuture)
+            defer {
+                _ = streamDownloadLock.signal()
+            }
+            do {
+                let urlString = try url.asURL().absoluteString
+                return streamDownloadRequests[urlString]
+            } catch {
+                return nil
+            }
+        }
+        set {
+            _ = lock.wait(timeout: DispatchTime.distantFuture)
+            defer {
+                _ = lock.signal()
+            }
+            do {
+                let urlString = try url.asURL().absoluteString
+                streamDownloadRequests[urlString] = newValue
+            } catch {
+            }
+        }
+    }
+    
     public override init() {
         super.init()
     }
@@ -285,6 +313,10 @@ extension LGURLSessionDelegate: URLSessionTaskDelegate {
             guard let strongSelf = self else { return }
             
             strongSelf.taskDidComplete?(session, task, error)
+            
+            if let request = strongSelf[task] as? LGStreamDownloadRequest, let key = request.request?.url?.absoluteString {
+                strongSelf[key] = nil
+            }
             
             strongSelf[task]?.delegate.urlSession(session, task: task, didCompleteWithError: error)
             

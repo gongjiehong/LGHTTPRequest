@@ -332,6 +332,11 @@ open class LGURLSessionManager {
     {
         do {
             let urlRequest = try URLRequest(url: url, method: method, headers: headers)
+            if let key = urlRequest.url?.absoluteString {
+                if let request = delegate[key] {
+                    return request
+                }
+            }
             let encodedURLRequest = try encoding.encode(urlRequest, with: parameters)
             return streamDownload(encodedURLRequest, to: destinationURL)
         } catch {
@@ -353,7 +358,13 @@ open class LGURLSessionManager {
                     // catch到错误，保证请求能继续
                 }
             }
+            
             let urlRequest = try urlRequest.asURLRequest()
+            if let key = urlRequest.url?.absoluteString {
+                if let request = delegate[key] {
+                    return request
+                }
+            }
             return streamDownload(.request(urlRequest, resumeData), to: destinationURL)
         } catch {
             return streamDownload(nil, to: destinationURL, failedWith: error)
@@ -368,6 +379,11 @@ open class LGURLSessionManager {
     {
         do {
             let originalRequest = try urlRequest.asURLRequest()
+            if let key = originalRequest.url?.absoluteString {
+                if let request = delegate[key] {
+                    return request
+                }
+            }
             return streamDownload(.request(originalRequest, resumeData), to: destinationURL)
         } catch {
             return streamDownload(nil, to: destinationURL, failedWith: error)
@@ -388,6 +404,10 @@ open class LGURLSessionManager {
             }
             
             delegate[task] = download
+            
+            if let key = download.request?.url?.absoluteString {
+               delegate[key] = download
+            }
             
             if startRequestsImmediately {
                 download.resume()
