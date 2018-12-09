@@ -334,6 +334,7 @@ open class LGURLSessionManager {
             let urlRequest = try URLRequest(url: url, method: method, headers: headers)
             if let key = urlRequest.url?.absoluteString {
                 if let request = delegate[key] {
+                    request.addHandleCount()
                     return request
                 }
             }
@@ -362,6 +363,7 @@ open class LGURLSessionManager {
             let urlRequest = try urlRequest.asURLRequest()
             if let key = urlRequest.url?.absoluteString {
                 if let request = delegate[key] {
+                    request.addHandleCount()
                     return request
                 }
             }
@@ -381,6 +383,7 @@ open class LGURLSessionManager {
             let originalRequest = try urlRequest.asURLRequest()
             if let key = originalRequest.url?.absoluteString {
                 if let request = delegate[key] {
+                    request.addHandleCount()
                     return request
                 }
             }

@@ -68,4 +68,27 @@ open class LGStreamDownloadRequest: LGDataRequest {
     public var destinationURL: URL {
         return self.downloadDelegate.destinationURL
     }
+    
+    private var handleCount: Int = 1
+    private var lock: DispatchSemaphore = DispatchSemaphore(value: 1)
+    
+    internal func addHandleCount() {
+        _ = lock.wait(timeout: DispatchTime.distantFuture)
+        defer {
+            _ = lock.signal()
+        }
+        handleCount += 1
+    }
+    
+    open override func cancel() {
+        _ = lock.wait(timeout: DispatchTime.distantFuture)
+        defer {
+            _ = lock.signal()
+        }
+        handleCount -= 1
+        
+        if self.handleCount <= 0 {
+            super.cancel()
+        }
+    }
 }
