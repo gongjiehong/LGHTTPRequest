@@ -11,8 +11,10 @@
 		</dict>
 		<key>LGHTTPRequest.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<key>LGHTTPRequestTests.xcscheme</key>
 		<dict>
@@ -21,13 +23,20 @@
 		</dict>
 		<key>LGHTTPRequestTests.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>14</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>FE15382F1F0C8F75009417E7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE29C9CC1FC3B99C0032EE0D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

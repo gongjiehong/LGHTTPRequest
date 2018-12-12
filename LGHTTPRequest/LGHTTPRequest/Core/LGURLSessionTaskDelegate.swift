@@ -178,10 +178,16 @@ open class LGDataTaskDelegate: LGURLSessionTaskDelegate, URLSessionDataDelegate 
         return self.task as! URLSessionDataTask
     }
     
+    private var lock = DispatchSemaphore(value: 1)
+    
     override public var receivedData: Data? {
         if dataStream != nil {
             return nil
         } else {
+            _ = lock.wait(timeout: DispatchTime.distantFuture)
+            defer {
+                _ = lock.signal()
+            }
             return mutableData
         }
     }
