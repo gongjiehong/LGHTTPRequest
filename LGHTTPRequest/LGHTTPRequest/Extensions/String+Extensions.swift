@@ -133,6 +133,12 @@ extension String {
         }
         return try data.aesDecrypt(with: key)
     }
+    
+    public func lg_validateNumber() -> Bool {
+        let  number = "^[0-9]+$"
+        let numberPre = NSPredicate(format: "SELF MATCHES %@", number)
+        return numberPre.evaluate(with: self)
+    }
 }
 
 
