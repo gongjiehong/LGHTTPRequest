@@ -242,33 +242,35 @@ public class LGEncryptor {
             throw(LGEncryptorError.invalidKey)
         }
         
-        let keyBytes = keyData.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> UnsafePointer<UInt8> in
-            return bytes
+        let keyBytes = keyData.withUnsafeBytes { (bytes) in
+            return bytes.baseAddress?.assumingMemoryBound(to:  UInt8.self)
         }
+        
         
         let keyLength = algorithm.keySize
         
         // 需要被加密的相关信息组装
         let dataLength = inputData.count
-        let dataBytes = inputData.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> UnsafePointer<UInt8> in
-            return bytes
+        let dataBytes = inputData.withUnsafeBytes { (bytes) in
+            return bytes.baseAddress?.assumingMemoryBound(to: UInt8.self)
         }
         // 输出buffer组装
         var outputBufferData = Data(count: dataLength + algorithm.blockSize)
-        let outputBufferPointer = outputBufferData.withUnsafeMutableBytes
-        { (bytes: UnsafeMutablePointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
-            return bytes
+        let outputBufferPointer = outputBufferData.withUnsafeMutableBytes { (bytes) in
+            return bytes.baseAddress?.assumingMemoryBound(to: UInt8.self)
         }
         
         var resultBuffer = Data()
         
         // 组装IV
-        let ivBuffer: UnsafePointer<UInt8>? = (iv == nil) ? nil : iv!.withUnsafeBytes(
-        { (bytes: UnsafePointer<UInt8>) -> UnsafePointer<UInt8> in
-            return bytes
-        })
-        
-        var bytesDecrypted = Int(0)
+        var ivBuffer: UnsafePointer<UInt8>?
+        if let iv = iv {
+            ivBuffer = iv.withUnsafeBytes { (bytes) in
+                return bytes.baseAddress?.assumingMemoryBound(to: UInt8.self)
+            }
+        }
+
+        var bytesDecrypted: Int = 0
         
         /// 创建加解密工具
         var cryptorRef: CCCryptorRef? = nil
