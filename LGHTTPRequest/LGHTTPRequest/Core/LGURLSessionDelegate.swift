@@ -125,34 +125,20 @@ open class LGURLSessionDelegate: NSObject {
     
     weak var sessionManager: LGURLSessionManager?
     
-    private var requests: [Int: LGHTTPRequest] = [Int: LGHTTPRequest]()
-    private let lock = DispatchSemaphore(value: 1)
+    private var requests = LGWeakValueDictionary<Int, LGHTTPRequest>()
     
     open subscript(task: URLSessionTask) -> LGHTTPRequest? {
         get {
-            _ = lock.wait(timeout: DispatchTime.distantFuture)
-            defer {
-                _ = lock.signal()
-            }
             return requests[task.taskIdentifier]
         }
         set {
-            _ = lock.wait(timeout: DispatchTime.distantFuture)
-            defer {
-                _ = lock.signal()
-            }
             requests[task.taskIdentifier] = newValue
         }
     }
     
-    private var streamDownloadRequests: [String: LGStreamDownloadRequest] = [String: LGStreamDownloadRequest]()
-    private let streamDownloadLock = DispatchSemaphore(value: 1)
+    private var streamDownloadRequests = LGWeakValueDictionary<String, LGStreamDownloadRequest>()
     open subscript(url: LGURLConvertible) -> LGStreamDownloadRequest? {
         get {
-            _ = streamDownloadLock.wait(timeout: DispatchTime.distantFuture)
-            defer {
-                _ = streamDownloadLock.signal()
-            }
             do {
                 let urlString = try url.asURL().absoluteString
                 return streamDownloadRequests[urlString]
@@ -161,10 +147,6 @@ open class LGURLSessionDelegate: NSObject {
             }
         }
         set {
-            _ = lock.wait(timeout: DispatchTime.distantFuture)
-            defer {
-                _ = lock.signal()
-            }
             do {
                 let urlString = try url.asURL().absoluteString
                 streamDownloadRequests[urlString] = newValue
