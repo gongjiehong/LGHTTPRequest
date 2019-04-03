@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE0B1C752254A69B000333E5 /* LGWeakValueDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0B1C742254A69B000333E5 /* LGWeakValueDictionary.swift */; };
 		FE1538351F0C8F75009417E7 /* LGHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = FE1538331F0C8F75009417E7 /* LGHTTPRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FE1538681F0C9365009417E7 /* LGError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1538671F0C9365009417E7 /* LGError.swift */; };
 		FE15386A1F0C956B009417E7 /* LGParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1538691F0C956B009417E7 /* LGParameterEncoding.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE0B1C742254A69B000333E5 /* LGWeakValueDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGWeakValueDictionary.swift; sourceTree = "<group>"; };
 		FE1538301F0C8F75009417E7 /* LGHTTPRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LGHTTPRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE1538331F0C8F75009417E7 /* LGHTTPRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGHTTPRequest.h; sourceTree = "<group>"; };
 		FE1538341F0C8F75009417E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		FE43FB9C1F0E25CE002A1488 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				FE0B1C742254A69B000333E5 /* LGWeakValueDictionary.swift */,
 				FE43FB9E1F0E25DA002A1488 /* LGReachability.swift */,
 				FE43FBA01F0E3129002A1488 /* LGMultipartFormData.swift */,
 				FE35FE261F0F337B00CCAA40 /* LGHTTPRequestCommon.swift */,
@@ -287,6 +290,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = FE1538261F0C8F75009417E7;
@@ -332,6 +336,7 @@
 				FE2E621520035FA600269AB8 /* String+Extensions.swift in Sources */,
 				FE2E620F20035F9F00269AB8 /* LGStreamRequest.swift in Sources */,
 				FEAD7EA32060C1B10019B34A /* LGEncryptor.swift in Sources */,
+				FE0B1C752254A69B000333E5 /* LGWeakValueDictionary.swift in Sources */,
 				FE41A3651F14893100D6673B /* LGMultipartFormDataEncoding.swift in Sources */,
 				FE184B3E1FF0F42C0015A27A /* LGServerTrustPolicy.swift in Sources */,
 				FE1538681F0C9365009417E7 /* LGError.swift in Sources */,
