@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE0B1C752254A69B000333E5 /* LGWeakValueDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0B1C742254A69B000333E5 /* LGWeakValueDictionary.swift */; };
 		FE1538351F0C8F75009417E7 /* LGHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = FE1538331F0C8F75009417E7 /* LGHTTPRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FE1538681F0C9365009417E7 /* LGError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1538671F0C9365009417E7 /* LGError.swift */; };
 		FE15386A1F0C956B009417E7 /* LGParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1538691F0C956B009417E7 /* LGParameterEncoding.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE0B1C742254A69B000333E5 /* LGWeakValueDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGWeakValueDictionary.swift; sourceTree = "<group>"; };
 		FE1538301F0C8F75009417E7 /* LGHTTPRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LGHTTPRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE1538331F0C8F75009417E7 /* LGHTTPRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGHTTPRequest.h; sourceTree = "<group>"; };
 		FE1538341F0C8F75009417E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		FE43FB9C1F0E25CE002A1488 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				FE0B1C742254A69B000333E5 /* LGWeakValueDictionary.swift */,
 				FE43FB9E1F0E25DA002A1488 /* LGReachability.swift */,
 				FE43FBA01F0E3129002A1488 /* LGMultipartFormData.swift */,
 				FE35FE261F0F337B00CCAA40 /* LGHTTPRequestCommon.swift */,
@@ -267,27 +270,28 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "龚杰洪";
 				TargetAttributes = {
 					FE15382F1F0C8F75009417E7 = {
 						CreatedOnToolsVersion = 8.3.3;
-						LastSwiftMigration = "";
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
 					FE29C9CC1FC3B99C0032EE0D = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = 44YP76NRV2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
 			buildConfigurationList = FE15382A1F0C8F75009417E7 /* Build configuration list for PBXProject "LGHTTPRequest" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
+				Base,
 			);
 			mainGroup = FE1538261F0C8F75009417E7;
 			productRefGroup = FE1538311F0C8F75009417E7 /* Products */;
@@ -332,6 +336,7 @@
 				FE2E621520035FA600269AB8 /* String+Extensions.swift in Sources */,
 				FE2E620F20035F9F00269AB8 /* LGStreamRequest.swift in Sources */,
 				FEAD7EA32060C1B10019B34A /* LGEncryptor.swift in Sources */,
+				FE0B1C752254A69B000333E5 /* LGWeakValueDictionary.swift in Sources */,
 				FE41A3651F14893100D6673B /* LGMultipartFormDataEncoding.swift in Sources */,
 				FE184B3E1FF0F42C0015A27A /* LGServerTrustPolicy.swift in Sources */,
 				FE1538681F0C9365009417E7 /* LGError.swift in Sources */,
@@ -493,7 +498,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -511,7 +516,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
@@ -520,7 +525,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -537,7 +542,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
@@ -554,8 +559,8 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 44YP76NRV2;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = LGHTTPRequestTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
@@ -580,8 +585,8 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 44YP76NRV2;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = LGHTTPRequestTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
