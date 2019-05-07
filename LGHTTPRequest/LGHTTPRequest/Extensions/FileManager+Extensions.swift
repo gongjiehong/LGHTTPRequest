@@ -9,13 +9,13 @@
 import Foundation
 
 
-extension FileManager {
+public extension FileManager {
     static var lg_cacheDirectoryPath: String {
         return NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory,
                                                    FileManager.SearchPathDomainMask.userDomainMask,
                                                    true)[0]
     }
-
+    
     static var lg_cacheDirectoryURL: URL {
         return URL(fileURLWithPath: lg_cacheDirectoryPath)
     }
@@ -26,6 +26,16 @@ extension FileManager {
     
     static var lg_temporaryDirectoryURL: URL {
         return URL(fileURLWithPath: lg_temporaryDirectoryPath)
+    }
+    
+    static var lg_documentsDirectoryPath: String {
+        return NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory,
+                                                   FileManager.SearchPathDomainMask.userDomainMask,
+                                                   true)[0]
+    }
+    
+    static var lg_documentsDirectoryURL: URL {
+        return URL(fileURLWithPath: lg_documentsDirectoryPath)
     }
     
     static func createDirectory(withURL url: URL) {
