@@ -21,6 +21,15 @@ extension String {
         return data.md5Hash()
     }
     
+    /// 返回当前String的SHA1值
+    ///
+    /// - Returns: 当前String的SHA1或nil
+    public func sha1() -> String? {
+        guard let data = self.data(using: String.Encoding.utf8) else { return nil }
+        
+        return data.sha1()
+    }
+    
     /// 当前String的长度，Swift4以后新换为count
     public var length: Int {
         return self.count

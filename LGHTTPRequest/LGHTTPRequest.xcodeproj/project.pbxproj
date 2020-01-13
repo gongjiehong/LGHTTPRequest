@@ -32,6 +32,7 @@
 		FE54753420522ACB00161A5B /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE54753320522ACB00161A5B /* DispatchQueue+Extension.swift */; };
 		FEAD7EA12060B6AA0019B34A /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD7EA02060B6AA0019B34A /* Data+Extensions.swift */; };
 		FEAD7EA32060C1B10019B34A /* LGEncryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD7EA22060C1B10019B34A /* LGEncryptor.swift */; };
+		FEADEA6D22A9015E00CE3622 /* DispatchSemaphore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEADEA6C22A9015E00CE3622 /* DispatchSemaphore+Extensions.swift */; };
 		FEAEE22A204FEBB900D621C4 /* LGResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAEE229204FEBB900D621C4 /* LGResponseSerialization.swift */; };
 		FEAEE22C204FEC7300D621C4 /* LGHTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAEE22B204FEC7300D621C4 /* LGHTTPResponse.swift */; };
 		FEAEE22E204FED9300D621C4 /* LGResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAEE22D204FED9300D621C4 /* LGResult.swift */; };
@@ -81,6 +82,7 @@
 		FE54753320522ACB00161A5B /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		FEAD7EA02060B6AA0019B34A /* Data+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extensions.swift"; sourceTree = "<group>"; };
 		FEAD7EA22060C1B10019B34A /* LGEncryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGEncryptor.swift; sourceTree = "<group>"; };
+		FEADEA6C22A9015E00CE3622 /* DispatchSemaphore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchSemaphore+Extensions.swift"; sourceTree = "<group>"; };
 		FEAEE229204FEBB900D621C4 /* LGResponseSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGResponseSerialization.swift; sourceTree = "<group>"; };
 		FEAEE22B204FEC7300D621C4 /* LGHTTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGHTTPResponse.swift; sourceTree = "<group>"; };
 		FEAEE22D204FED9300D621C4 /* LGResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGResult.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				FE54753320522ACB00161A5B /* DispatchQueue+Extension.swift */,
 				FEAD7EA02060B6AA0019B34A /* Data+Extensions.swift */,
 				FE4FB98521B691C90067A8AA /* FileManager+Extensions.swift */,
+				FEADEA6C22A9015E00CE3622 /* DispatchSemaphore+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				FE1538681F0C9365009417E7 /* LGError.swift in Sources */,
 				FE2E620C20035F9F00269AB8 /* LGURLSessionTaskDelegate.swift in Sources */,
 				FEAD7EA12060B6AA0019B34A /* Data+Extensions.swift in Sources */,
+				FEADEA6D22A9015E00CE3622 /* DispatchSemaphore+Extensions.swift in Sources */,
 				FE2E621120035F9F00269AB8 /* LGUploadRequest.swift in Sources */,
 				FE4FB97A21B682FE0067A8AA /* LGStreamDownloadRequest.swift in Sources */,
 				FE4FB98621B691C90067A8AA /* FileManager+Extensions.swift in Sources */,

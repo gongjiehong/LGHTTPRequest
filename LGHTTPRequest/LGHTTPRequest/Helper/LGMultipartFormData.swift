@@ -265,7 +265,8 @@ open class LGMultipartFormData {
     
     private func mimeType(forPathExtension pathExtension: String) -> String {
         if
-            let id = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension as CFString, nil)?.takeRetainedValue(),
+            let id = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
+                                                           pathExtension as CFString, nil)?.takeRetainedValue(),
             let contentType = UTTypeCopyPreferredTagWithClass(id, kUTTagClassMIMEType)?.takeRetainedValue()
         {
             return contentType as String
@@ -276,7 +277,10 @@ open class LGMultipartFormData {
     
     // MARK: - Private - 创建表单每一部分的头
     
-    private func contentHeaders(withName name: String, fileName: String? = nil, mimeType: String? = nil) -> [String: String] {
+    private func contentHeaders(withName name: String,
+                                fileName: String? = nil,
+                                mimeType: String? = nil) -> [String: String]
+    {
         var disposition = "form-data; name=\"\(name)\""
         if let fileName = fileName {
             disposition += "; filename=\"\(fileName)\""

@@ -41,15 +41,15 @@ open class LGURLSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
     
     var task: URLSessionTask? {
         set {
-            _ = taskLock.wait(timeout: DispatchTime.distantFuture)
+            taskLock.lg_lock()
             defer {
-                _ = taskLock.signal()
+                taskLock.lg_unlock()
             }
             _task = newValue
         } get {
-            _ = taskLock.wait(timeout: DispatchTime.distantFuture)
+            taskLock.lg_lock()
             defer {
-                _ = taskLock.signal()
+                taskLock.lg_unlock()
             }
             return _task
         }
@@ -184,9 +184,9 @@ open class LGDataTaskDelegate: LGURLSessionTaskDelegate, URLSessionDataDelegate 
         if dataStream != nil {
             return nil
         } else {
-            _ = lock.wait(timeout: DispatchTime.distantFuture)
+            lock.lg_lock()
             defer {
-                _ = lock.signal()
+                lock.lg_unlock()
             }
             return mutableData
         }

@@ -32,16 +32,16 @@ open class LGHTTPRequest {
     
     open internal(set) var delegate: LGURLSessionTaskDelegate {
         get {
-            _ = taskDelegateLock.wait(timeout: DispatchTime.distantFuture)
+            taskDelegateLock.lg_lock()
             defer {
-                _ = taskDelegateLock.signal()
+                taskDelegateLock.lg_unlock()
             }
             return taskDelegate
         }
         set {
-            _ = taskDelegateLock.wait(timeout: DispatchTime.distantFuture)
+            taskDelegateLock.lg_lock()
             defer {
-                _ = taskDelegateLock.signal()
+                taskDelegateLock.lg_unlock()
             }
             taskDelegate = newValue
         }

@@ -73,17 +73,17 @@ open class LGStreamDownloadRequest: LGDataRequest {
     private var lock: DispatchSemaphore = DispatchSemaphore(value: 1)
     
     internal func addHandleCount() {
-        _ = lock.wait(timeout: DispatchTime.distantFuture)
+        lock.lg_lock()
         defer {
-            _ = lock.signal()
+            lock.lg_unlock()
         }
         handleCount += 1
     }
     
     open override func cancel() {
-        _ = lock.wait(timeout: DispatchTime.distantFuture)
+        lock.lg_lock()
         defer {
-            _ = lock.signal()
+            lock.lg_unlock()
         }
         handleCount -= 1
         
