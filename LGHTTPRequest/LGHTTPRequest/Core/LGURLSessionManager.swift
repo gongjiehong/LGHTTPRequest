@@ -559,7 +559,7 @@ open class LGURLSessionManager {
         with urlRequest: LGURLRequestConvertible,
         encodingCompletion: ((MultipartFormDataEncodingResult) -> Void)?)
     {
-        DispatchQueue.global(qos: .utility).async {
+        DispatchQueue.utility.async {
             let formData = LGMultipartFormData()
             multipartFormData(formData)
             
@@ -584,7 +584,8 @@ open class LGURLSessionManager {
                 } else {
                     let fileManager = FileManager.default
                     let tempDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
-                    let directoryURL = tempDirectoryURL.appendingPathComponent("com.lghttprequest.manager/multipart.form.data")
+                    let formDataPath = "com.lghttprequest.manager/multipart.form.data"
+                    let directoryURL = tempDirectoryURL.appendingPathComponent(formDataPath)
                     let fileName = UUID().uuidString
                     let fileURL = directoryURL.appendingPathComponent(fileName)
                     
@@ -595,7 +596,9 @@ open class LGURLSessionManager {
                     // Create directory inside serial queue to ensure two threads don't do this in parallel
                     self.queue.sync {
                         do {
-                            try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true, attributes: nil)
+                            try fileManager.createDirectory(at: directoryURL,
+                                                            withIntermediateDirectories: true,
+                                                            attributes: nil)
                         } catch {
                             directoryError = error
                         }
@@ -739,5 +742,4 @@ open class LGURLSessionManager {
     }
     
     #endif
-
 }

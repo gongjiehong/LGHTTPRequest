@@ -13,8 +13,8 @@ Swift版网络请求和文件下载库
 - [x] 网络状态检查
 
 # 环境要求
-- iOS 9.0+
-- Xcode 10.2+
+- iOS 12.2+
+- Xcode 11.5+
 - Swift 5.0+
 - CommonCrypto, Dispatch, Foundation.framework, SystemConfiguration.framework, CoreTelephony.framework
 
