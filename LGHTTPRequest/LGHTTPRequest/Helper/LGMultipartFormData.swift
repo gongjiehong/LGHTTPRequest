@@ -266,8 +266,8 @@ open class LGMultipartFormData {
     private func mimeType(forPathExtension pathExtension: String) -> String {
         if
             let id = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
-                                                           pathExtension as CFString, nil)?.takeRetainedValue(),
-            let contentType = UTTypeCopyPreferredTagWithClass(id, kUTTagClassMIMEType)?.takeRetainedValue()
+                                                           pathExtension as CFString, nil)?.takeUnretainedValue(),
+            let contentType = UTTypeCopyPreferredTagWithClass(id, kUTTagClassMIMEType)?.takeUnretainedValue()
         {
             return contentType as String
         }
