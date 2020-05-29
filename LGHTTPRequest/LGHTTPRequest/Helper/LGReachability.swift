@@ -240,10 +240,13 @@ public class LGReachability {
     /// 获取移动网络类型并保存到self.mobileNetworkType
     func getMobileNetworkType() {
         let telephony = CTTelephonyNetworkInfo()
-        if telephony.currentRadioAccessTechnology != nil{
-            self.mobileNetworkType = telephony.currentRadioAccessTechnology!
-        }
-        else {
+        if let technology = telephony.serviceCurrentRadioAccessTechnology {
+            // 获取随意卡槽的网络类型
+            for (_, value) in technology {
+                self.mobileNetworkType = value.shortMobileNetworkType
+                break
+            }
+        } else {
             self.mobileNetworkType = LGMobileNetworkTypeUnknown
         }
     }
