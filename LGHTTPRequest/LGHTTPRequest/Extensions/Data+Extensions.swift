@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CryptoKit
 import CommonCrypto
 
 extension Data {
@@ -15,34 +16,20 @@ extension Data {
     ///
     /// - Returns: 当前Data的MD5或nil
     public func md5Hash() -> String {
-        let length = Int(CC_MD5_DIGEST_LENGTH)
-        var dataCopy = self
-        
-        let pointer = dataCopy.withUnsafeMutableBytes { dataBytes in
-            dataBytes.baseAddress?.assumingMemoryBound(to: UnsafePointer<Data>.self)
-        }
-        
-        var hash: [UInt8] = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
-        CC_MD5(pointer, CC_LONG(self.count), &hash)
-        
-        return (0..<length).map { String(format: "%02x", hash[$0]) }.joined()
+        let digest = Insecure.MD5.hash(data: self)
+        return digest.map {
+            String(format: "%02hhx", $0)
+        }.joined()
     }
     
     /// 返回当前Data的SHA1值
     ///
     /// - Returns: 当前Data的SHA1或nil
     public func sha1() -> String {
-        let length = Int(CC_SHA1_DIGEST_LENGTH)
-        var dataCopy = self
-        
-        let pointer = dataCopy.withUnsafeMutableBytes { dataBytes in
-            dataBytes.baseAddress?.assumingMemoryBound(to: UnsafePointer<Data>.self)
-        }
-        
-        var hash: [UInt8] = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH * 2))
-        CC_SHA1(pointer, CC_LONG(self.count), &hash)
-        
-        return (0..<length).map { String(format: "%02x", hash[$0]) }.joined()
+        let digest = Insecure.SHA1.hash(data: self)
+        return digest.map {
+            String(format: "%02hhx", $0)
+        }.joined()
     }
     
     /// 通过key对当前Data进行AES加密，key长度必须为32个字符，前16个字符为实际加密key，后16个字符为IV，填充模式PKCS7，块模式CBC
