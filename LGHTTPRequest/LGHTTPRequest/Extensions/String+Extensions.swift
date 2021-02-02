@@ -30,6 +30,14 @@ extension String {
         return data.sha1()
     }
     
+    /// 返回当前String的SHA256值
+    /// - Returns: 当前String的SHA256或nil
+    public func sha256() -> String? {
+        guard let data = self.data(using: String.Encoding.utf8) else { return nil }
+        
+        return data.sha256()
+    }
+    
     /// 当前String的长度，Swift4以后新换为count
     public var length: Int {
         return self.count

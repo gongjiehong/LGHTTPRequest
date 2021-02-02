@@ -32,6 +32,18 @@ extension Data {
         }.joined()
     }
     
+    /// 返回当前Data的SHA256值
+    /// - Returns: 当前Data的SHA256
+    public func sha256() -> String {
+        var hash = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
+        self.withUnsafeBytes {
+            _ = CC_SHA256($0.baseAddress, CC_LONG(self.count), &hash)
+        }
+        return hash.map {
+            String(format: "%02hhx", $0)
+        }.joined()
+    }
+    
     /// 通过key对当前Data进行AES加密，key长度必须为32个字符，前16个字符为实际加密key，后16个字符为IV，填充模式PKCS7，块模式CBC
     ///
     /// - Parameter key: 加密key
