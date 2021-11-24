@@ -30,23 +30,28 @@ public typealias LGMobileNetworkType = String
 // MARK: -  移动网络类型重载
 extension LGMobileNetworkType {
     
-    /// 判断2G,3G,4G
+    /// 判断2G,3G,4G,5G
     public var shortMobileNetworkType: String {
         switch self {
         case CTRadioAccessTechnologyGPRS, CTRadioAccessTechnologyEdge:
             return "2G"
         case CTRadioAccessTechnologyWCDMA,
-             CTRadioAccessTechnologyHSDPA,
-             CTRadioAccessTechnologyHSUPA,
-             CTRadioAccessTechnologyCDMA1x,
-             CTRadioAccessTechnologyCDMAEVDORev0,
-             CTRadioAccessTechnologyCDMAEVDORevA,
-             CTRadioAccessTechnologyCDMAEVDORevB,
-             CTRadioAccessTechnologyeHRPD:
+            CTRadioAccessTechnologyHSDPA,
+            CTRadioAccessTechnologyHSUPA,
+            CTRadioAccessTechnologyCDMA1x,
+            CTRadioAccessTechnologyCDMAEVDORev0,
+            CTRadioAccessTechnologyCDMAEVDORevA,
+            CTRadioAccessTechnologyCDMAEVDORevB,
+        CTRadioAccessTechnologyeHRPD:
             return "3G"
         case CTRadioAccessTechnologyLTE:
             return "4G"
         default:
+            if #available(iOSApplicationExtension 14.1, *) {
+                if CTRadioAccessTechnologyNRNSA == self || CTRadioAccessTechnologyNR == self {
+                    return "5G"
+                }
+            }
             return "Unknown"
         }
     }
