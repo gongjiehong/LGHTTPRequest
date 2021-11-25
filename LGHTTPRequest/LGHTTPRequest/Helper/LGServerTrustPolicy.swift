@@ -173,15 +173,11 @@ public enum LGServerTrustPolicy {
     private func trustIsValid(_ trust: SecTrust) -> Bool {
         var isValid = false
         
-        var result = SecTrustResultType.invalid
-        let status = SecTrustEvaluate(trust, &result)
+        var result: CFError?
+        let status = SecTrustEvaluateWithError(trust, &result)
         
-        if status == errSecSuccess {
-            let unspecified = SecTrustResultType.unspecified
-            let proceed = SecTrustResultType.proceed
-            
-            
-            isValid = result == unspecified || result == proceed
+        if status == true && result != nil {
+            isValid = true
         }
         
         return isValid

@@ -95,6 +95,8 @@ public struct LGURLEncoding: LGParameterEncoding {
             }
         } else if let bool = value as? Bool {
             components.append((escape(key), escape((bool ? "1" : "0"))))
+        } else if let string = value as? String {
+            components.append((escape(key), escape(string)))
         } else {
             components.append((escape(key), escape("\(value)")))
         }

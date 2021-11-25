@@ -33,8 +33,7 @@ public class LGMultipartFormDataEncoder: LGMultipartFormDataEncoding {
             try data.writeEncodedData(to: fileUrl)
             
             request.httpBodyStream = InputStream(fileAtPath: filePath)
-        }
-        else {
+        } else {
             let bodyData = try data.encode()
             request.httpBody = bodyData
         }
